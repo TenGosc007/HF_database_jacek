@@ -34,6 +34,8 @@ CREATE TABLE totality (
     FOREIGN KEY(month_name) references sale(month_name)
 );
 
+USE jahf;
+
 SELECT * FROM users;
 SELECT * FROM products;
 SELECT * FROM sale;
@@ -77,3 +79,11 @@ FROM sale
 INNER JOIN users on users.user_id = sale.user_id
 INNER JOIN products on products.product_id = sale.product_id
 ORDER BY users.first_name;
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'reja69productsuser_id';
+
+DROP DATABASE nodemysql;
+
+USE nodemysql;
+
+SELECT * FROM posts;
