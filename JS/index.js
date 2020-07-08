@@ -1,106 +1,113 @@
 const express = require('express');
-const mysql = require('mysql');
+const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
+const path = require('path');
+
+// Database
+const db = require('./config/database');
 
 const app = express();
 
-// Create connection
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'tengosc',
-    password: 'reja69',
-    database: 'nodemysql'
-});
+// Handlebars
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect
 db.connect((err) => {
-    if(err){
+    if (err) {
         throw err;
     }
     console.log('MySql Connected...');
 });
 
+app.get('/users', (req, res) => {
+    res.render('users', {users});
+});
+
 // Create DB
 app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE nodemysql';
+    let sql = 'CREATE DATABASE jahl';
     db.query(sql, (err, result) => {
-        if(err) throw err;
+        if (err) throw err;
         console.log(result);
         res.send('Database created...');
     });
 });
 
 // Create table
-app.get('/createposttable', (req, res) => {
-    let sql = 'CREATE TABLE posts(id INT AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY (id))';
+app.get('/createusers', (req, res) => {
+    let sql = `CREATE TABLE users(
+        user_id INT AUTO_INCREMENT,
+        first_name VARCHAR(100),
+        last_name VARCHAR(100),
+        position VARCHAR(40),
+        PRIMARY KEY(user_id)
+     )`;
     db.query(sql, (err, result) => {
-        if(err) throw err;
+        if (err) throw err;
         console.log(result);
         res.send('Post table created...');
     });
 });
 
-// Insert post 1
-app.get('/addpost1', (req, res) => {
-    let post = {title:'Post One', body:'This is post nuber one'};
-    let sql = 'INSERT INTO posts SET ?';
-    let query = db.query(sql, post, (err, result) => {
-        if(err) throw err;
+// Insert user
+app.get('/adduser', (req, res) => {
+    let user = {
+        first_name: 'Arkadiusz',
+        last_name: 'Atamańczuk',
+        position: 'Supervisor'
+    };
+    let sql = 'INSERT INTO users SET ?';
+    let query = db.query(sql, user, (err, result) => {
+        if (err) throw err;
         console.log(result);
-        res.send('Post 1 added...');
+        res.send(`User ${user.first_name} added...`);
     });
 })
 
-// Insert post 2
-app.get('/addpost2', (req, res) => {
-    let post = {title:'Post Two', body:'This is post nuber two'};
-    let sql = 'INSERT INTO posts SET ?';
-    let query = db.query(sql, post, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.send('Post 2 added...');
-    });
-})
-
-// Select posts 
-app.get('/getposts', (req, res) => {
-    let sql = 'SELECT * FROM posts';
+// Select users 
+app.get('/getusers', (req, res) => {
+    let sql = 'SELECT * FROM users';
     let query = db.query(sql, (err, results) => {
         if (err) throw err;
-        console.log(results)
-        res.send('Posts fetched...');
+        console.log('Users fetched...')
+        res.send(results);
     });
 });
 
-// Select single posts 
-app.get('/getpost/:id', (req, res) => {
-    let sql = `SELECT * FROM posts WHERE id = ${req.params.id}`;
+// Select single user
+app.get('/getuser/:id', (req, res) => {
+    let sql = `SELECT * FROM users WHERE user_id = ${req.params.id}`;
     let query = db.query(sql, (err, result) => {
         if (err) throw err;
-        console.log(result)
-        res.send('Post fetched...');
+        console.log('User fetched...')
+        res.send(result);
     });
 });
 
-// Update post
-app.get('/updatepost/:id', (req, res) => {
-    let newTitle = 'Updated Title';
-    let sql = `UPDATE posts SET title = '${newTitle}' WHERE id = ${req.params.id}`;
+// Update user
+app.get('/updateuser/:id/:position', (req, res) => {
+    let sql = `UPDATE users SET position = '${req.params.position}' WHERE user_id = ${req.params.id}`;
     let query = db.query(sql, (err, result) => {
         if (err) throw err;
-        console.log(result)
-        res.send('Posts updated...');
+        console.log('User updated...')
+        res.send(result);
     });
-}); 
+});
 
-// Delete post
-app.get('/deletepost/:id', (req, res) => {
-    let sql = `DELETE FROM posts WHERE id = ${req.params.id}`;
+// Delete user
+app.get('/deleteuser/:id', (req, res) => {
+    let sql = `DELETE FROM users WHERE user_id = ${req.params.id}`;
     let query = db.query(sql, (err, result) => {
         if (err) throw err;
-        console.log(result)
-        res.send('Posts deleted...');
+        console.log('User deleted...')
+        res.send(result);
     });
-}); 
+});
 
-app.listen(5000, () => console.log('Server started'));
+const PORT = process.env.PORT || 5000;
 
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
