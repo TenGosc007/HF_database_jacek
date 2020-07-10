@@ -10,6 +10,7 @@
   "author": "Brad Traversy",
   "license": "MIT",
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -20,6 +21,7 @@
     "sequelize": "^4.44.4"
   },
   "devDependencies": {
+    "handlebars": "^4.7.6",
     "nodemon": "^1.19.4"
   }
 }

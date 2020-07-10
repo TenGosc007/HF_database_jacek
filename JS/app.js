@@ -1,5 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const _handlebars = require('handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -15,6 +17,12 @@ const app = express();
 
 // Handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+// Prototype access for handlebars
+app.engine('handlebars', exphbs({
+  handlebars: allowInsecurePrototypeAccess(_handlebars)
+}));
 app.set('view engine', 'handlebars');
 
 // Body Parser
