@@ -1,16 +1,16 @@
 <section id="users" class="container">
-    <h1>All Users</h1>
+  <h1>All Users</h1>
 
-    {{#each users}}
-      <div class="user">
-      <h3>{{first_name}}</h3>
-      <p>{{last_name}}</p>
-      <div class="tech">
-        <small>Position Needed: <span>{{position}}</span></small>
-      </div>
+  {{#each users}}
+  <div class="user">
+    <h3>{{first_name}}</h3>
+    <p>{{last_name}}</p>
+    <div class="tech">
+      <small>Position: <span>{{position}}</span></small>
     </div>
-    {{else}}
-      <p>No users available</p>
-    {{/each}}
-    
-  </section>
+  </div>
+  {{else}}
+  <p>No users available</p>
+  {{/each}}
+
+</section>

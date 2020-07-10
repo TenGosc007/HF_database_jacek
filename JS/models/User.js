@@ -14,6 +14,6 @@ const User = db.define('user', {
 });
 
 User.sync().then(() => {
-  console.log('table created');
+  console.log('table users created');
 });
 module.exports = User;

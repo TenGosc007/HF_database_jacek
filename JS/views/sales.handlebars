@@ -1,0 +1,12 @@
+<section id="sales" class="container">
+  <h2>Sale:</h2>
+  {{#each sales}}
+  <div class="sale">
+    <h3>{{price}}</h3>
+    <p>{{amount}}</p>
+  </div>
+  {{else}}
+  <p>No sales available</p>
+  {{/each}}
+
+</section>
