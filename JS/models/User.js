@@ -5,10 +5,10 @@ const User = db.define('user', {
   first_name: {
     type: Sequelize.STRING
   },
-  last_name: {
+  position: {
     type: Sequelize.STRING
   },
-  position: {
+  last_name: {
     type: Sequelize.STRING
   }
 });

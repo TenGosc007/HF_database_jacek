@@ -1,0 +1,29 @@
+<section id="add" class="container">
+    <div class="form-wrap">
+      <h1>Add A User</h1>
+      <p>Your contact email will be shared with registered users to apply to your user</p>
+      {{#each errors}}
+        <div class="error">
+          <p>{{text}}</p>
+        </div>
+      {{/each}}
+      <form action="/users/add" method="POST">
+        <div class="input-group">
+          <label for="first_name">User first name</label>
+          <input type="text" name="first_name" id="first_name" class="input-box" placeholder="eg. Small Wordpress website, React developer"
+            maxlength="100" value={{first_name}}>
+        </div>
+        <div class="input-group">
+          <label for="position">position Needed</label>
+          <input type="text" name="position" id="position" class="input-box" placeholder="eg. javascript, react, PHP"
+          maxlength="100" value={{position}}>
+        </div>
+        <div class="input-group">
+          <label for="last_name">User last name</label>
+          <textarea name="last_name" id="last_name" class="input-box" placeholder="Describe the details of the user"
+            rows="10">{{last_name}}</textarea>
+        </div>
+        <input type="submit" value="Add User" class="btn btn-reverse">
+      </form>
+    </div>
+  </section>
