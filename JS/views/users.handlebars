@@ -1,16 +1,31 @@
-<section id="users" class="container">
+<section id="display" class="display-wrap">
+
   <h1>All Users</h1>
 
+  <table class="display-table">
+    <tr>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Pozycja</th>
+    </tr>
+  </table>
   {{#each users}}
-  <div class="user">
-    <h3>{{first_name}}</h3>
-    <p>{{last_name}}</p>
-    <div class="tech">
-      <small>Position: <span>{{position}}</span></small>
-    </div>
-  </div>
+  <table class="display-table">
+    {{#if (isEven id)}}
+    <tr class='op_color'>
+      <td>{{first_name}}</td>
+      <td>{{last_name}}</td>
+      <td>{{position}}</td>
+    </tr>
+    {{else}}
+    <tr>
+      <td>{{first_name}}</td>
+      <td>{{last_name}}</td>
+      <td>{{position}}</td>
+    </tr>
+    {{/if}}
+  </table>
   {{else}}
   <p>No users available</p>
   {{/each}}
-
 </section>

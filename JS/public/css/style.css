@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 :root {
-  --primary-color: #568c9b;
-  --primary-hover-color: #64a5b7;
-  --bg-color: #333;
+  --primary-color: rgb(188, 136, 81);
+  --primary-hover-color: #16065c;
+  --bg-color: rgb(46, 32, 127);
   --box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.7);
 }
 
@@ -30,6 +30,10 @@ a {
 
 a:hover {
   color: var(--primary-color);
+}
+
+h2 a:hover {
+  color: var(--primary-hover-color);
 }
 
 .container {
@@ -65,11 +69,6 @@ header nav li {
   margin: 0 1rem;
 }
 
-/* Login Button Spacing */
-/*header nav li:last-child {
-  margin-left: -5px;
-}*/
-
 header.inner {
   background: var(--bg-color);
   border-bottom: 4px solid var(--primary-color);
@@ -77,112 +76,70 @@ header.inner {
   box-shadow: var(--box-shadow);
 }
 
-/* Buttons */
-.btn {
-  color: #fff;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  transition: all 0.7s;
-}
-
-.btn:hover {
-  background: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  color: #fff;
-}
-
-.btn-reverse {
-  background: var(--primary-color);
-  border: 1px solid var(--primary-color);
-}
-
-.btn-reverse:hover {
-  background: var(--primary-hover-color);
-  border: 1px solid var(--primary-hover-color);
-}
-
-/* Home Search */
-.search-wrap {
-  background: url('../img/showcase.jpg') no-repeat center center fixed;
-  background-size: cover;
+/* Home display */
+.display-wrap {
+  background: url('../img/plane_big.jpg') no-repeat center center fixed;
   height: 100vh;
   width: 100%;
   padding: 1.3rem 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
+  background-size: cover;
 }
 
-.search-wrap h1 {
+.display-wrap h1 {
   font-size: 3rem;
   font-weight: 800;
   color: #fff;
+  padding-top: 2em;
   margin: 0 0 1.5rem;
   text-align: center;
 }
 
-.search-form input[type='submit'] {
-  background: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  color: #fff;
-  padding: 0 2rem;
-  cursor: pointer;
-  transition: all 0.8s;
+.display-table {
+  background-color: rgba(255, 228, 196, 0.911);
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.search-form input[type='submit']:hover {
-  background: var(--primary-hover-color);
-  border: 1px solid var(--primary-hover-color);
+.display-table td, .display-table th {
+  border: 1px solid rgb(173, 173, 173);
+  padding: 8px;
 }
 
-.search-form {
-  display: flex;
-  width: 600px;
-  box-shadow: var(--box-shadow);
+.op_color {background-color: #f2f2f2ea;}
+
+.display-table tr:hover {background-color: rgb(180, 180, 180);}
+
+.display-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #dd9434c7;
+  font-weight: bolder;
+  color: rgb(51, 51, 51);
 }
 
-.search-form i {
-  color: #333;
+/* nth-child(1) = the first td in each tr */
+td:nth-child(1), th:nth-child(1) {
+  width: 20%;
+  }
+
+/* the second */
+td:nth-child(2), th:nth-child(2) {
+  width: 40%;
 }
 
-/* Everything in the search form */
-.search-form > * {
-  border: 0;
-  padding: 0 0 0 10px;
-  background: #fff;
-  line-height: 50px;
-  font-size: 1rem;
-  border-radius: 0;
-  outline: 0;
-}
+/* the third */
+td:nth-child(3), th:nth-child(3) {
+  width: 40%;
+ }
 
-input[type='search'] {
+input[type='display'] {
   flex-basis: 600px;
-}
-
-/* Gigs */
-.gig {
-  background: var(--bg-color);
-  border-bottom: 4px solid var(--primary-color);
-  color: #fff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: var(--box-shadow);
-}
-
-.gig ul {
-  list-style: none;
-  display: flex;
-}
-
-.gig li {
-  margin-right: 0.5rem;
-  padding: 0.6rem;
-}
-
-.gig .tech span {
-  color: var(--primary-color);
 }
 
 /* Form */
@@ -238,20 +195,16 @@ label {
     padding: 0.3rem !important;
   }
 
-  .search-form {
-    width: 100%;
-  }
-
-  input[type='search'] {
-    flex-basis: 100%;
-  }
-
-  .search-wrap h1 {
-    font-size: 2rem;
-  }
-
-  .search-wrap {
+  .display-wrap {
+    align-items: baseline;
     padding: 2.3rem;
+  }
+
+  .display-wrap h1 {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3em;
+    font-size: 2rem;
   }
 
   .gig ul {
@@ -280,17 +233,9 @@ label {
     margin: 0 10px;
   }
 
-  .search-form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  input[type='search'] {
-    flex-basis: 0;
-  }
-
-  .search-form i {
-    display: none;
+  .display-wrap h1 {
+    padding-top: 3em;
+    font-size: 2rem;
   }
 
   .form-wrap {
