@@ -15,8 +15,8 @@ CREATE TABLE products(
 
 CREATE TABLE sales(
    month_name VARCHAR(100),
-   user_id INT,
-   product_id INT,
+   userId INT,
+   productId INT,
    amount INT,
    price INT,
    PRIMARY KEY(month_name, user_id, product_id),
@@ -58,16 +58,7 @@ values
 ('Herbata_50', 92, now(), now()),
 ('Herbata_100', 150, now(), now());
 
-INSERT INTO sales (month_name, user_id, product_id, amount, price, createdAt, updatedAt) 
-values 
-('july20', 2, 5, 1, 173, now(), now()),
-('july20', 3, 2, 1, 400, now(), now()),
-('july20', 3, 6, 1, 92, now(), now()),
-('jun20', 1, 1, 2, 300, now(), now()),
-('jun20', 5, 7, 1, 150, now(), now()),
-('jun20', 5, 3, 2, 220, now(), now());
-
-INSERT INTO sales (month_name, userId, product_id, price, amount, createdAt, updatedAt)
+INSERT INTO sales (month_name, userId, productId, price, amount, createdAt, updatedAt)
 values
 ('july20', 1, 1, 173, 2, now(), now()),
 ('jun20', 1, 3, 300, 2, now(), now()),
@@ -82,6 +73,6 @@ users.first_name,
 products.product_name
 FROM sales
 INNER JOIN users on users.id = sales.userId
-INNER JOIN products on products.id = sales.product_id
+INNER JOIN products on products.id = sales.productId
 WHERE users.first_name = 'Adam'
 ORDER BY users.first_name;
