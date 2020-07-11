@@ -16,7 +16,7 @@ const Sale = db.define('sale', {
       key: 'id'
     }
   },
-  product_id: {
+  productId: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     references: {

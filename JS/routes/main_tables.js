@@ -10,26 +10,32 @@ const Op = Sequelize.Op;
 
 // Relations
 Sale.belongsTo(User);
+Sale.belongsTo(Product);
 User.hasMany(Sale);
+Product.hasMany(Sale);
 
 // Get product list
 router.get('/', (req, res) => {
   let odp = Sale.findAll({
+    attributes: ['month_name', 'price'],
     include: [{
       model: User,
       as: 'user',
       required: true,
-      attributes: ['first_name']
-    }],
-    attributes: ['price']
-  });
-
-  User.findAll({
-    attributes: ['first_name']
+      attributes: ['first_name'],
+      where: {
+        first_name: 'Adam'
+      }
+    }, {
+      model: Product,
+      as: 'product',
+      required: true,
+      attributes: ['product_name']
+    }]
   });
 
   odp.then(mtable => {
-      res.render('sales', {
+      res.render('mtable',{
         mtable
       })
     })

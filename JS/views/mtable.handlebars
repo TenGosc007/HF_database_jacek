@@ -1,0 +1,15 @@
+<section id="mtable" class="container">
+  <h2>Tabela:</h2>
+  {{#each mtable}}
+  <div class="mtable">
+    <h3>Imię: {{user.first_name}}</h3>
+    <p>Produkt: {{product.product_name}}</p>
+    <p>Cena: {{price}}</p>
+    <p>Miesiąc zakupu: {{month_name}}</p>
+    <hr>
+  </div>
+  {{else}}
+  <p>No mtables available</p>
+  {{/each}}
+
+</section>
