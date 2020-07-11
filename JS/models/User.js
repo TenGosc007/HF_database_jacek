@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const Sale = require('../models/Sale');
 
 const User = db.define('user', {
   first_name: {

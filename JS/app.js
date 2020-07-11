@@ -53,6 +53,9 @@ app.use('/products', require('./routes/products'));
 // Sale routes
 app.use('/sales', require('./routes/sales'));
 
+// Main table
+app.use('/mtable', require('./routes/main_tables'));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

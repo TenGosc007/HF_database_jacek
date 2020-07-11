@@ -67,7 +67,7 @@ values
 ('jun20', 5, 7, 1, 150, now(), now()),
 ('jun20', 5, 3, 2, 220, now(), now());
 
-INSERT INTO sales (month_name, user_id, product_id, price, amount, createdAt, updatedAt)
+INSERT INTO sales (month_name, userId, product_id, price, amount, createdAt, updatedAt)
 values
 ('july20', 1, 1, 173, 2, now(), now()),
 ('jun20', 1, 3, 300, 2, now(), now()),
@@ -77,9 +77,11 @@ values
 ('jun20', 4, 3, 220, 2, now(), now());
 
 
-SELECT users.first_name,
+SELECT 
+users.first_name,
 products.product_name
 FROM sales
-INNER JOIN users on users.id = sales.user_id
-INNER JOIN products on products.product_id = sales.product_id
+INNER JOIN users on users.id = sales.userId
+INNER JOIN products on products.id = sales.product_id
+WHERE users.first_name = 'Adam'
 ORDER BY users.first_name;

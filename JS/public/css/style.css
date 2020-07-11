@@ -76,12 +76,29 @@ header.inner {
   box-shadow: var(--box-shadow);
 }
 
+/* Buttons section */
+.buttons-wrap {
+  padding: 1.3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.button-section {
+  padding: 5px;
+}
+
 /* Buttons */
 .btn {
   color: #fff;
   padding: 0.6rem;
   border: 1px solid #ccc;
+  box-shadow: 2px 2px 8px #140b2b;
   transition: all 0.7s;
+  min-width: 15em;
+  font-size: larger;
 }
 
 .btn:hover {
@@ -123,7 +140,7 @@ header.inner {
 }
 
 .user-wrap {
-  background: ##f4f4f4;
+  background: #f4f4f4;
   height: 100vh;
   width: 100%;
   padding: 1.3rem 3rem;
@@ -162,16 +179,19 @@ header.inner {
 /* nth-child(1) = the first td in each tr */
 td:nth-child(1), th:nth-child(1) {
   width: 20%;
+  min-width: 6rem;
   }
 
 /* the second */
 td:nth-child(2), th:nth-child(2) {
   width: 40%;
+  min-width: 9rem;
 }
 
 /* the third */
 td:nth-child(3), th:nth-child(3) {
   width: 40%;
+  min-width: 9rem;
  }
 
 input[type='display'] {
@@ -231,8 +251,11 @@ label {
     padding: 0.3rem !important;
   }
 
-  .display-wrap {
+  .user-wrap {
     align-items: baseline;
+  }
+
+  .display-wrap {
     padding: 2.3rem;
   }
 

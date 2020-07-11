@@ -8,7 +8,7 @@ const Sale = db.define('sale', {
     type: Sequelize.STRING,
     primaryKey: true
   },
-  user_id: {
+  userId: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     references: {
@@ -31,6 +31,7 @@ const Sale = db.define('sale', {
     type: Sequelize.INTEGER
   }
 });
+
 
 Sale.sync().then(() => {
   console.log('table sale created');

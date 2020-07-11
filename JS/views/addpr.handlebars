@@ -1,0 +1,24 @@
+<section id="addpr" class="container">
+  <div class="form-wrap">
+    <h1>Dodaj produkt</h1>
+    <p>Tutaj możesz dodać nowe produkty</p>
+    {{#each errors}}
+    <div class="error">
+      <p>{{text}}</p>
+    </div>
+    {{/each}}
+    <form action="/products/addpr" method="POST">
+      <div class="input-group">
+        <label for="product_name">Nazwa produktu</label>
+        <input type="text" name="product_name" id="product_name" class="input-box" placeholder="np. Koktaij 220g"
+          maxlength="100" value={{product_name}}>
+      </div>
+      <div class="input-group">
+        <label for="price">Cena standardowa</label>
+        <input type="text" name="price" id="price" class="input-box" placeholder="np. 175" maxlength="100"
+          value={{price}}>
+      </div>
+      <input type="submit" value="Dodaj Produkt" class="btn btn-reverse">
+    </form>
+  </div>
+</section>
