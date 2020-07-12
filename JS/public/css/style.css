@@ -158,14 +158,19 @@ header.inner {
   width: 100%;
 }
 
-.display-table td, .display-table th {
+.display-table td,
+.display-table th {
   border: 1px solid rgb(173, 173, 173);
   padding: 8px;
 }
 
-.op_color {background-color: #f2f2f2ea;}
+.op_color {
+  background-color: #f2f2f2ea;
+}
 
-.display-table tr:hover {background-color: rgb(180, 180, 180);}
+.display-table tr:hover {
+  background-color: rgb(180, 180, 180);
+}
 
 .display-table th {
   padding-top: 12px;
@@ -177,22 +182,25 @@ header.inner {
 }
 
 /* nth-child(1) = the first td in each tr */
-td:nth-child(1), th:nth-child(1) {
+td:nth-child(1),
+th:nth-child(1) {
   width: 20%;
   min-width: 6rem;
-  }
+}
 
 /* the second */
-td:nth-child(2), th:nth-child(2) {
+td:nth-child(2),
+th:nth-child(2) {
   width: 40%;
   min-width: 9rem;
 }
 
 /* the third */
-td:nth-child(3), th:nth-child(3) {
+td:nth-child(3),
+th:nth-child(3) {
   width: 40%;
   min-width: 9rem;
- }
+}
 
 input[type='display'] {
   flex-basis: 600px;
@@ -238,6 +246,15 @@ label {
   font-size: 18px;
   width: 100%;
   margin-bottom: 1.2rem;
+}
+
+.char-sigh {
+  border-radius: 2px;
+  padding: 0 5px;
+  text-align: center;
+  font-weight: 900;
+  color: rgba(46, 32, 127, 0.76);
+  background: #d48b047c;
 }
 
 /* Tablets */

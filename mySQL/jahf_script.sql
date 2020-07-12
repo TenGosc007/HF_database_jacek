@@ -70,9 +70,15 @@ values
 
 SELECT 
 users.first_name,
-products.product_name
+products.product_name,
+sales.price,
+sales.total
 FROM sales
-INNER JOIN users on users.id = sales.userId
-INNER JOIN products on products.id = sales.productId
+JOIN users on users.id = sales.userId
+JOIN products on products.id = sales.productId
 WHERE users.first_name = 'Adam'
 ORDER BY users.first_name;
+
+SELECT SUM(price)
+FROM sales
+WHERE month_name = 'july20' AND userId = 3;

@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 const User = require('../models/User');
 const Product = require('../models/Product');
+const sequelize = require('sequelize');
 
 const Sale = db.define('sale', {
   month_name: {
@@ -28,6 +29,9 @@ const Sale = db.define('sale', {
     type: Sequelize.INTEGER
   },
   amount: {
+    type: Sequelize.INTEGER
+  },
+  total: {
     type: Sequelize.INTEGER
   }
 });

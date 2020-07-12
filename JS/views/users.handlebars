@@ -6,22 +6,30 @@
     <tr>
       <th>Imię</th>
       <th>Nazwisko</th>
-      <th>Pozycja</th>
     </tr>
   </table>
   {{#each users}}
   <table class="display-table">
     {{#if (isEven id)}}
     <tr class='op_color'>
-      <td>{{first_name}}</td>
+      <td>{{first_name}}
+        {{#if (ifPos position 'supervisor')}}
+        <span class="char-sigh">S</span></td>
+      {{else if (ifPos position 'partner')}}
+      <span class="char-sigh">P</span></td>
+      {{/if}}
       <td>{{last_name}}</td>
-      <td>{{position}}</td>
     </tr>
     {{else}}
     <tr>
-      <td>{{first_name}}</td>
+      <td>{{first_name}}
+        {{#if (ifPos position 'supervisor')}}
+        <span class="char-sigh">S</span></td>
+        {{else if (ifPos position 'partner')}}
+      <span class="char-sigh">P</span></td>
+      {{/if}}
+      </td>
       <td>{{last_name}}</td>
-      <td>{{position}}</td>
     </tr>
     {{/if}}
   </table>

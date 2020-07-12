@@ -12,3 +12,12 @@ npm start
 # Dev Server (Nodemon)
 npm run dev
 ```
+
+# ENV file
+``` bash
+PORT = 
+
+DATABASE = ''
+USER_NAME = ''
+PASSWORD = ''
+```

@@ -31,6 +31,13 @@ Handlebars.registerHelper('isEven', function (value) {
     return false;
 });
 
+Handlebars.registerHelper('ifPos', function (val1, val2) {
+  if (val1 === val2)
+    return true;
+  else
+    return false;
+});
+
 // Body Parser
 app.use(bodyParser.urlencoded({
   extended: false
