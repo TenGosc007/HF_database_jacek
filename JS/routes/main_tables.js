@@ -15,7 +15,7 @@ User.hasMany(Sale);
 Product.hasMany(Sale);
 
 // Get product list
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   let odp = Sale.findAll({
     attributes: ['month_name', 'price' ],
     include: [{
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
       required: true,
       attributes: ['first_name', 'last_name'],
       where: {
-        first_name: 'Adam'
+        id: req.params.id
       }
     }, {
       model: Product,
@@ -37,13 +37,11 @@ router.get('/', (req, res) => {
   let total = 1;
   Sale.sum('price', {
     where: {
-      month_name: 'july20',
-      userId: 3
+      userId: req.params.id
     }
   }).then(sum => total = sum);
 
   odp.then(mtable => {
-      console.log(mtable[0].dataValues.user.dataValues.first_name);
       res.render('mtable', {
         mtable, total
       })

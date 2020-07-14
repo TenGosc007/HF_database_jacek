@@ -1,39 +1,58 @@
 <section id="display" class="user-wrap">
 
-  <h1>All Users</h1>
-
+  <h1>Użytkownicy</h1>
   <table class="display-table">
     <tr>
       <th>Imię</th>
       <th>Nazwisko</th>
+      <th>{{month_1}}</br>Karnety | Produkty</th>
+      <th>{{month_2}}</br>Karnety | Produkty</th>
+      <th>{{month_3}}</br>Karnety | Produkty</th>
     </tr>
   </table>
-  {{#each users}}
-  <table class="display-table">
-    {{#if (isEven id)}}
-    <tr class='op_color'>
-      <td>{{first_name}}
-        {{#if (ifPos position 'supervisor')}}
-        <span class="char-sigh">S</span></td>
-      {{else if (ifPos position 'partner')}}
-      <span class="char-sigh">P</span></td>
+  {{#each display}}
+    <table class="display-table">
+      {{#if (change)}}    
+        <tr class='op_color'>
+          <td> <a href="/" class="user_name">{{first_name}}</a>
+            {{#if (ifPos position 'supervisor')}}
+              <span class="char-sigh">S</span></td>
+            {{else if (ifPos position 'partner')}}
+              <span class="char-sigh">P</span></td>
+            {{else if (ifPos position 'starszy')}}
+              <span class="char-sigh">ST</span></td>
+          {{/if}}
+          <td>{{last_name}}</td>
+          <td></td>
+          <td>{{total_product_1}}</td>
+          <td></td>
+          <td>{{total_product_2}}</td>
+          <td></td>
+          <td>{{total_product_3}}</td>
+        </tr>
+        {{else}}
+        <tr>
+          <td> <a href="/" class="user_name">{{first_name}}</a>
+            {{#if (ifPos position 'supervisor')}}
+              <span class="char-sigh">S</span></td>
+            {{else if (ifPos position 'partner')}}
+              <span class="char-sigh">P</span></td>
+            {{else if (ifPos position 'starszy')}}
+              <span class="char-sigh">ST</span></td>
+          {{/if}}
+          </td>
+          <td>{{last_name}}</td>
+          <td></td>
+          <td>{{total_product_1}}</td>
+          <td></td>
+          <td>{{total_product_2}}</td>
+          <td></td>
+          <td>{{total_product_3}}</td>
+        </tr>
       {{/if}}
-      <td>{{last_name}}</td>
-    </tr>
-    {{else}}
-    <tr>
-      <td>{{first_name}}
-        {{#if (ifPos position 'supervisor')}}
-        <span class="char-sigh">S</span></td>
-        {{else if (ifPos position 'partner')}}
-      <span class="char-sigh">P</span></td>
-      {{/if}}
-      </td>
-      <td>{{last_name}}</td>
-    </tr>
-    {{/if}}
-  </table>
-  {{else}}
-  <p>No users available</p>
+    </table>
   {{/each}}
+  {{#if (change)}}
+  {{/if}}
+
 </section>

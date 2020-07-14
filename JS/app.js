@@ -6,9 +6,11 @@ const {
 } = require('@handlebars/allow-prototype-access');
 const bodyParser = require('body-parser');
 const path = require('path');
+let boleanVar = true;
 
 // Database
 const db = require('./config/database');
+const { and } = require('./config/database');
 
 // Test DB
 db.authenticate()
@@ -33,6 +35,52 @@ Handlebars.registerHelper('isEven', function (value) {
 
 Handlebars.registerHelper('ifPos', function (val1, val2) {
   if (val1 === val2)
+    return true;
+  else
+    return false;
+});
+
+Handlebars.registerHelper('change', function () {
+  if (boleanVar === true){
+    boleanVar = false;
+    return true;
+  }
+  else{
+    boleanVar = true;
+    return false;
+  }
+});
+
+Handlebars.registerHelper('actual', function (month, year) {
+  const dateObj = new Date();
+  let mindex = dateObj.getUTCMonth();
+  let currentYear = dateObj.getUTCFullYear();
+  let monthTab = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+  if (month === monthTab[mindex] && year == currentYear)
+    return true;
+  else
+    return false;
+});
+
+Handlebars.registerHelper('prev', function (month, year) {
+  const dateObj = new Date();
+  let mindex = dateObj.getUTCMonth()-1;
+  let currentYear = dateObj.getUTCFullYear();
+  if (mindex < 0) { mindex = 12 + mindex; currentYear = currentYear-1}
+  let monthTab = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+  if (month === monthTab[mindex] && year == currentYear)
+    return true;
+  else
+    return false;
+});
+
+Handlebars.registerHelper('pprev', function (month, year) {
+  const dateObj = new Date();
+  let mindex = dateObj.getUTCMonth()-2;
+  let currentYear = dateObj.getUTCFullYear();
+  if (mindex < 0) { mindex = 12 + mindex; currentYear = currentYear-1}
+  let monthTab = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+  if (month === monthTab[mindex] && year == currentYear)
     return true;
   else
     return false;

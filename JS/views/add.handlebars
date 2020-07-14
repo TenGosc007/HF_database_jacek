@@ -1,29 +1,35 @@
 <section id="add" class="container">
-    <div class="form-wrap">
-      <h1>Dodaj osobę</h1>
-      <p>Tutaj możesz dodać nowe osoby</p>
-      {{#each errors}}
-        <div class="error">
-          <p>{{text}}</p>
-        </div>
-      {{/each}}
-      <form action="/users/add" method="POST">
-        <div class="input-group">
-          <label for="first_name">Imię</label>
-          <input type="text" name="first_name" id="first_name" class="input-box" placeholder="eg. Jan"
-            maxlength="100" value={{first_name}}>
-        </div>
-        <div class="input-group">
-          <label for="last_name">Nazwisko</label>
-          <input type="text" name="last_name" id="last_name" class="input-box" placeholder="eg. Kowalski"
-            maxlength="100" value={{last_name}}>
-        </div>
-        <div class="input-group">
-          <label for="position">Pozycja</label>
-          <input type="text" name="position" id="position" class="input-box" placeholder="np. klient, partner, supervisor"
-          maxlength="100" value={{position}}>
-        </div>
-        <input type="submit" value="Dodaj Osobę" class="btn btn-reverse">
-      </form>
+  <div class="form-wrap">
+    <h1>Dodaj osobę</h1>
+    <p>Tutaj możesz dodać nowe osoby</p>
+    {{#each errors}}
+    <div class="error">
+      <p>{{text}}</p>
     </div>
-  </section>
+    {{/each}}
+    <form action="/users/add" method="POST">
+      <div class="input-group">
+        <label for="first_name">Imię</label>
+        <input type="text" name="first_name" id="first_name" class="input-box" placeholder="np. Jan" maxlength="100"
+          value={{first_name}}>
+      </div>
+      <div class="input-group">
+        <label for="last_name">Nazwisko</label>
+        <input type="text" name="last_name" id="last_name" class="input-box" placeholder="np. Kowalski" maxlength="100"
+          value={{last_name}}>
+      </div>
+      <div class="input-group">
+        <label for="position">Pozycja</label></br>
+        <input type="radio" id="klient" name="position" value="klient">
+        <label for="klient">klient</label><br>
+        <input type="radio" id="partner" name="position" value="partner">
+        <label for="partner">partner</label><br>
+        <input type="radio" id="older_cons" name="position" value="starszy">
+        <label for="older_cons">starszy konsultant</label><br>
+        <input type="radio" id="supervisor" name="position" value="supervisor">
+        <label for="supervisor">supervisor</label>
+      </div>
+      <input type="submit" value="Dodaj Osobę" class="btn btn-reverse">
+    </form>
+  </div>
+</section>

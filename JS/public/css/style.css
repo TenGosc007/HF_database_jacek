@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 :root {
-  --primary-color: rgb(188, 136, 81);
-  --primary-hover-color: #d48b04;
+  --primary-color: rgb(223, 144, 61);
+  --primary-hover-color: #b16611;
   --bg-color: rgb(46, 32, 127);
   --box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.7);
 }
@@ -35,6 +35,17 @@ a:hover {
 h2 a:hover {
   color: var(--primary-hover-color);
 }
+
+.user_name {
+  color: #333;
+  text-decoration: none;
+}
+
+.user_name:hover {
+  font-size: large;
+  color: rgb(68, 47, 0);
+}
+
 
 .container {
   max-width: 960px;
@@ -179,28 +190,39 @@ header.inner {
   background-color: #dd9434c7;
   font-weight: bolder;
   color: rgb(51, 51, 51);
+  text-align: center;
 }
 
-/* nth-child(1) = the first td in each tr */
 td:nth-child(1),
-th:nth-child(1) {
+td:nth-child(2) {
   width: 20%;
-  min-width: 6rem;
+  min-width: 7rem;
 }
 
-/* the second */
-td:nth-child(2),
+th:nth-child(1),
 th:nth-child(2) {
-  width: 40%;
-  min-width: 9rem;
+  width: 20%;
+  min-width: 7rem;
 }
 
-/* the third */
-td:nth-child(3),
-th:nth-child(3) {
-  width: 40%;
-  min-width: 9rem;
+th:nth-child(3),
+th:nth-child(4),
+th:nth-child(5) {
+  width: 20%;
+  min-width: 10.5rem;
 }
+
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(6),
+td:nth-child(7),
+td:nth-child(8) {
+  width: 10%;
+  min-width: 5.25rem;
+}
+
+
 
 input[type='display'] {
   flex-basis: 600px;
@@ -237,7 +259,7 @@ input[type='display'] {
 }
 
 label {
-  display: block;
+  display: inline-block;
   margin-bottom: 0.5rem;
 }
 
@@ -257,6 +279,8 @@ label {
   background: #d48b047c;
 }
 
+
+/* -------------------------------------------------------------------- */
 /* Tablets */
 @media (max-width: 800px) {
   .container {

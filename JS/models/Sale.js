@@ -1,12 +1,17 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 const User = require('../models/User');
+const Month = require('../models/Month');
 const Product = require('../models/Product');
-const sequelize = require('sequelize');
+const { STRING } = require('sequelize');
 
 const Sale = db.define('sale', {
   month_name: {
     type: Sequelize.STRING,
+    primaryKey: true
+  },
+  month_year: {
+    type: Sequelize.INTEGER,
     primaryKey: true
   },
   userId: {
