@@ -20,6 +20,13 @@ Month.hasMany(User, {
 
 // Get user list
 router.get('/', (req, res) => {
+  const dateObj = new Date();
+  let month = dateObj.getUTCMonth() + 1;
+  let year = dateObj.getUTCFullYear();
+  month_1 = month_day(month);
+  month_2 = month_day(month - 1);
+  month_3 = month_day(month - 2);
+
   User.findAll({
     attributes: ['id','first_name', 'last_name', 'position'],
     include: [{
@@ -53,7 +60,7 @@ router.get('/', (req, res) => {
     }
     var finArr = new Array(coutner);
     for (var i = 0; i < finArr.length; i++) {
-      finArr[i] = new Array(6);
+      finArr[i] = new Array(7);
     }
 
     let j=0;
@@ -61,31 +68,34 @@ router.get('/', (req, res) => {
     for(i in odp) {
       if (k >= 3){ j++; k=0; }
       if(odp[i].month_name === month_1) {
-        finArr[j][0] = odp[i].first_name;
-        finArr[j][1] = odp[i].last_name;
-        finArr[j][2] = odp[i].position;
-        finArr[j][3] = odp[i].total_product;
-        k++;
-      }
-      if(odp[i].month_name === month_2) {
+        finArr[j][0] = odp[i].id;
+        finArr[j][1] = odp[i].first_name;
+        finArr[j][2] = odp[i].last_name;
+        finArr[j][3] = odp[i].position;
         finArr[j][4] = odp[i].total_product;
         k++;
       }
-      if(odp[i].month_name === month_3) {
+      if(odp[i].month_name === month_2) {
         finArr[j][5] = odp[i].total_product;
+        k++;
+      }
+      if(odp[i].month_name === month_3) {
+        finArr[j][6] = odp[i].total_product;
         k++;
       }
     }
 
     Display.destroy({ truncate : true, cascade: false });
     for (i in finArr){
-      first_name = finArr[i][0];
-      last_name = finArr[i][1];
-      position = finArr[i][2];
-      total_product_1 = finArr[i][3];
-      total_product_2 = finArr[i][4];
-      total_product_3 = finArr[i][5];
+      userId = finArr[i][0]
+      first_name = finArr[i][1];
+      last_name = finArr[i][2];
+      position = finArr[i][3];
+      total_product_1 = finArr[i][4];
+      total_product_2 = finArr[i][5];
+      total_product_3 = finArr[i][6];
       Display.create({
+        userId,
         first_name,
         last_name,
         position,
@@ -114,7 +124,9 @@ router.get('/display', (req, res) => {
     .then(display =>{
       res.render('users', {
           display,
-          month_1
+          month_1,
+          month_2,
+          month_3
       })
     })
     .catch(err => res.render('error', {error: err}))

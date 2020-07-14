@@ -2,6 +2,9 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const Display = db.define('display', {
+  userId: {
+    type: Sequelize.INTEGER
+  },
   first_name: {
     type: Sequelize.STRING
   },

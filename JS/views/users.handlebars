@@ -14,7 +14,7 @@
     <table class="display-table">
       {{#if (change)}}    
         <tr class='op_color'>
-          <td> <a href="/" class="user_name">{{first_name}}</a>
+          <td> <a href="/mtable/{{userId}}" class="user_name">{{first_name}}</a>
             {{#if (ifPos position 'supervisor')}}
               <span class="char-sigh">S</span></td>
             {{else if (ifPos position 'partner')}}
@@ -32,7 +32,7 @@
         </tr>
         {{else}}
         <tr>
-          <td> <a href="/" class="user_name">{{first_name}}</a>
+          <td> <a href="/mtable/{{userId}}" class="user_name">{{first_name}}</a>
             {{#if (ifPos position 'supervisor')}}
               <span class="char-sigh">S</span></td>
             {{else if (ifPos position 'partner')}}
