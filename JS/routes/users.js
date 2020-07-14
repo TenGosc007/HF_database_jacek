@@ -138,6 +138,14 @@ router.get('/add', (req, res) => res.render('add'));
 
 // Add a user
 router.post('/add', (req, res) => {
+  const first_month = 3;
+  const first_year = 2020;
+  const dateObj = new Date();
+  let month = dateObj.getUTCMonth() + 1;
+  let year = dateObj.getUTCFullYear();
+  let total_product = 0;
+  let userId = 0;
+
   let {
     first_name,
     position,
@@ -172,13 +180,44 @@ router.post('/add', (req, res) => {
     // Make lowercase and remove space after comma
     position = position.toLowerCase().replace(/,[ ]+/g, ',');
 
+    year = year - (year - first_year);
+
     // Insert into table
     User.create({
         first_name,
         position,
         last_name
       })
-      .then(user => res.redirect('/users'))
+      .then(user => { 
+        User.max('id')
+        .then(val => {
+          userId = val;
+          while (true) {
+            month_year = year;
+            month_name = month_day(month);
+      
+            Month.create({
+              month_name,
+              month_year,
+              userId,
+              total_product
+            });
+      
+            console.log("nowy: ", month_year, month_name, userId, total_product);
+      
+            month = month-1;
+            if(month < 1) {
+              month = 12;
+              year = year - 1;
+            } 
+      
+            if(month === first_month && year === first_year)
+              break;
+          }
+        });
+      
+        res.redirect('/users')
+    })
       .catch(err => res.render('error', {
         error: err.message
       }))
