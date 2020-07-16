@@ -1,12 +1,29 @@
 <section id="products" class="container">
-  <h2>Products:</h2>
+  <h2>Lista Produktów:</h2>
+  <table class="display-table">
+    <tr>
+      <th>Nazwa</th>
+      <th>Cena</th>
+    </tr>
+  </table>
   {{#each products}}
-  <div class="product">
-    <h3>{{product_name}}</h3>
-    <p>{{price}}</p>
-  </div>
+    <table class="display-table">
+      {{#if (change)}}    
+        <tr class='op_color'>
+          <td> <a href="/" class="user_name">{{product_name}}</a>
+          <td>{{price}} zł</td>
+        </tr>
+        {{else}}
+        <tr>
+          <td> <a href="/" class="user_name">{{product_name}}</a>
+          <td>{{price}} zł</td>
+        </tr>
+      {{/if}}
+    </table>
   {{else}}
-  <p>No products available</p>
+    <p>Brak produktów</p>
   {{/each}}
+  {{#if (change)}}
+  {{/if}}
 
 </section>

@@ -34,7 +34,6 @@ router.get('/', (req, res) => {
       as: 'month',
       required: false,
       attributes: ['month_name', 'month_year', 'total_product'],
-      order: ['month_name']
     }],
     order: ['first_name']
   }).then(users => {
@@ -120,7 +119,7 @@ router.get('/display', (req, res) => {
   month_2 = month_day(month - 1);
   month_3 = month_day(month - 2);
 
-  Display.findAll()
+  Display.findAll({order: ['first_name']})
     .then(display =>{
       res.render('users', {
           display,
@@ -131,7 +130,6 @@ router.get('/display', (req, res) => {
     })
     .catch(err => res.render('error', {error: err}))
 });
-    
 
 // Display add user form
 router.get('/add', (req, res) => res.render('add'));
@@ -195,6 +193,10 @@ router.post('/add', (req, res) => {
           while (true) {
             month_year = year;
             month_name = month_day(month);
+            productId = 1;
+            price = 0;
+            amount = 0;
+            total = 0;
       
             Month.create({
               month_name,
@@ -202,6 +204,16 @@ router.post('/add', (req, res) => {
               userId,
               total_product
             });
+
+            Sale.create({
+              month_name,
+              month_year,
+              userId,
+              productId,
+              price,
+              amount,
+              total
+            })
       
             console.log("nowy: ", month_year, month_name, userId, total_product);
       

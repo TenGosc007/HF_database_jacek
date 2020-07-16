@@ -59,6 +59,13 @@ values
   ('Koktajl_780', 173, now(), now()),
   ('Herbata_50', 92, now(), now()),
   ('Herbata_100', 150, now(), now());
+  
+  INSERT INTO
+  sales ( month_name, month_year, userId, productId,
+         price, amount, createdAt, updatedAt)
+values
+  ('Lipiec', 2019, 3, 5, 200, 4, now(), now());
+
 
 INSERT INTO
   sales ( month_name, month_year, userId, productId,
@@ -85,6 +92,7 @@ values
   ('Kwiecień', 2020, 3, 1, 0, 0, now(), now()),
   ('Kwiecień', 2020, 4, 1, 0, 0, now(), now()),
   ('Kwiecień', 2020, 5, 1, 0, 0, now(), now());
+
 INSERT INTO
   months (month_name, month_year, userId, total_product, createdAt, updatedAt)
 values

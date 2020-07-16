@@ -1,19 +1,43 @@
 <section id="mtable" class="container">
   {{#each mtable}}
   {{#if @first}}
-  <h2>{{user.first_name}} {{user.last_name}}</h2>
+  <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> 
+      {{first_name}} {{last_name}}</h2>
   {{/if}}
-  {{/each}}
-  {{#each mtable}}
-  <div class="mtable">
-    <p>Produkt: {{product.product_name}}</p>
-    <p>Cena: {{price}}</p>
-    <p>Miesiąc zakupu: {{month_name}}</p>
-    <hr>
-  </div>
   {{else}}
-  <p>No mtables available</p>
+  <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> </h2>
   {{/each}}
-  <p>Total: {{total}}</p>
+
+  {{#each mtable}}
+    {{#if (ifNot amount 0)}}
+      {{#if (ifNot month_number -1)}}
+        <hr>
+        <h2>{{month_name}} {{month_year}}</h2>
+      {{/if}}
+
+      <section class="container_mtable">
+        <table class="display-table">
+          <tr>
+            <th>{{product_name}}</th>
+          </tr>
+          <tr class='op_color'>
+            <td>{{amount}}</td>
+          </tr>
+          <tr class='op_color'>
+            <td>{{price}} zł</td>
+          </tr>
+        </table>  
+      </section>
+      {{#if (ifNot total -1)}}
+        <section class="sum_of_month">
+          <table class="display-sumtable">
+            <tr>
+              <th>Suma: {{total}} zł</th>
+            </tr>
+          </table>
+        </section>
+      {{/if}}
+    {{/if}}
+  {{/each}}
 
 </section>

@@ -161,12 +161,26 @@ header.inner {
   background-size: cover;
 }
 
+.display-sumtable {
+  background-color: rgba(255, 228, 196, 0.911);
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 8rem;
+  margin: 10px 0;
+}
+
+.display-sumtable th {
+  border: 1px solid rgb(173, 173, 173);
+  padding: 8px;
+}
 
 .display-table {
   background-color: rgba(255, 228, 196, 0.911);
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .display-table td,
@@ -176,7 +190,7 @@ header.inner {
 }
 
 .op_color {
-  background-color: #f2f2f2ea;
+  background-color:  rgb(255, 248, 241);
 }
 
 .display-table tr:hover {
@@ -279,6 +293,11 @@ label {
   background: #d48b047c;
 }
 
+.container_mtable {
+  display: inline-table;
+  padding: 0;
+  margin: 0;
+}
 
 /* -------------------------------------------------------------------- */
 /* Tablets */

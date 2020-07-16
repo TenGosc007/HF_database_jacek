@@ -40,6 +40,13 @@ Handlebars.registerHelper('ifPos', function (val1, val2) {
     return false;
 });
 
+Handlebars.registerHelper('ifNot', function (val1, val2) {
+  if (val1 === val2)
+    return false;
+  else
+    return true;
+});
+
 Handlebars.registerHelper('change', function () {
   if (boleanVar === true){
     boleanVar = false;

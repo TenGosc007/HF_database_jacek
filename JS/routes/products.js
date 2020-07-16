@@ -7,7 +7,7 @@ const Op = Sequelize.Op;
 
 // Get product list
 router.get('/', (req, res) =>
-  Product.findAll()
+  Product.findAll({order: ['product_name']})
   .then(products => res.render('products', {
     products
   }))
