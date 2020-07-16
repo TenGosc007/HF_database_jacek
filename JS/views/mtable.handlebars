@@ -29,6 +29,11 @@
         </table>  
       </section>
       {{#if (ifNot total -1)}}
+        <section class="container_mtable">
+          <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
+        </section>
+      {{/if}}
+      {{#if (ifNot total -1)}}
         <section class="sum_of_month">
           <table class="display-sumtable">
             <tr>
@@ -40,4 +45,37 @@
     {{/if}}
   {{/each}}
 
+  <div class="form-popup" id="myForm">
+    <form action="/action_page.php" class="form-container">
+        <h1>Dodaj produkt</h1>
+
+          <label for="first_name">Produkt</label>
+          <div class="input-group">
+            <select id="dessert" class="input-box">
+              {{#each products}}
+                <option value="Panna cotta">{{product_name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <label for="first_name">Ilość</label>
+          <input type="text" name="first_name" id="first_name" class="input-box" placeholder="np. 1" maxlength="100"
+            value={{first_name}}>
+          <label for="first_name">Cena PLN</label>
+          <input type="text" name="first_name" id="first_name" class="input-box" placeholder="np. 170" maxlength="100"
+            value={{first_name}}>
+
+        <button type="submit" class="btn btn-reverse">Dodaj</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Anuluj</button>
+    </form>
+  </div>
 </section>
+
+<script>
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+</script>

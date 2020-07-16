@@ -134,8 +134,11 @@ router.get('/display/:id', (req, res) => {
 router.get('/total', (req, res) => {
   DisplayArr.findAll({order: ['order']})
     .then(mtable =>{
-      res.render('mtable', {
-          mtable
+      Product.findAll().
+      then(products => {
+        res.render('mtable', {
+          mtable, products
+        })
       })
     })
     .catch(err => res.render('error', {error: err}))
