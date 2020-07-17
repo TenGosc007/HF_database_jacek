@@ -52,6 +52,7 @@ h2 a:hover {
   padding: 1rem 4rem;
   margin: auto;
   overflow: hidden;
+  min-height: 350px;
 }
 
 .error {
@@ -108,7 +109,7 @@ header.inner {
   border: 1px solid #ccc;
   box-shadow: 2px 2px 8px #140b2b;
   transition: all 0.7s;
-  min-width: 11em;
+  min-width: 12em;
   font-size: larger;
   display: block;
 }
@@ -155,6 +156,8 @@ header.inner {
   background: #f4f4f4;
   height: 100vh;
   width: 100%;
+  max-width: 1400px;
+  margin: auto;
   padding: 1.3rem 3rem;
   display: flex;
   flex-direction: column;
@@ -285,6 +288,14 @@ label {
   margin-bottom: 1.2rem;
 }
 
+.input-box-list {
+  padding: 0.5rem;
+  font-size: 18px;
+  width: 45%;
+  margin-left: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
 .char-sigh {
   border-radius: 2px;
   padding: 0 5px;
@@ -303,15 +314,11 @@ label {
 .add_button {
   border: 3px solid;
   border-radius: 3px;
-  color: #db9a224b;
-  font-size: 40px;
-  padding: 25px 20px;
+  color: #dd9434c7;
+  font-size: 20px;
+  padding: 1px 4px;
   justify-content: center;
-  margin-left: 10px;
-  position: relative;
-  top: 2.5rem;
-  min-width: 113px;
-  min-height: 117px;
+  height: 2rem;
 }
 
 .add_button:hover {
@@ -375,6 +382,14 @@ label {
 /* Add some hover effects to buttons */
 .btn:hover, .open-button:hover {
   opacity: 1;
+}
+
+.edit_panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  padding-right: 6rem;
 }
 
 /* -------------------------------------------------------------------- */

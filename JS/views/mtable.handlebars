@@ -1,12 +1,18 @@
 <section id="mtable" class="container">
   {{#each mtable}}
   {{#if @first}}
-  <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> 
-      {{first_name}} {{last_name}}</h2>
+    <div class="edit_panel">
+      <h2>
+        <a href="/users" class="user_name"><i class="fa fa-reply"></i></a> 
+        {{first_name}} {{last_name}}
+      </h2>
+      <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
+    </div>
   {{/if}}
   {{else}}
   <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> </h2>
   {{/each}}
+
 
   {{#each mtable}}
     {{#if (ifNot amount 0)}}
@@ -29,11 +35,6 @@
         </table>  
       </section>
       {{#if (ifNot total -1)}}
-        <section class="container_mtable">
-          <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
-        </section>
-      {{/if}}
-      {{#if (ifNot total -1)}}
         <section class="sum_of_month">
           <table class="display-sumtable">
             <tr>
@@ -42,30 +43,70 @@
           </table>
         </section>
       {{/if}}
+    {{else}}
+      {{#if @first}}
+        <hr>
+        <h2>{{month_name}} {{month_year}}</h2>
+      {{/if}}
     {{/if}}
   {{/each}}
 
   <div class="form-popup" id="myForm">
-    <form action="/action_page.php" class="form-container">
+    <form action="/mtable/addnew" method="POST" class="form-container">
         <h1>Dodaj produkt</h1>
+          <input name="userId" value={{mtable.[0].userId}} style="display:none;"> 
 
-          <label for="first_name">Produkt</label>
+          <label for="product_name">Produkt</label>
           <div class="input-group">
-            <select id="dessert" class="input-box">
+            <select id="product_name", name="product_name" class="input-box">
               {{#each products}}
-                <option value="Panna cotta">{{product_name}}</option>
+                <option value={{product_name}}>{{product_name}}</option>
               {{/each}}
             </select>
           </div>
-          <label for="first_name">Ilość</label>
-          <input type="text" name="first_name" id="first_name" class="input-box" placeholder="np. 1" maxlength="100"
-            value={{first_name}}>
-          <label for="first_name">Cena PLN</label>
-          <input type="text" name="first_name" id="first_name" class="input-box" placeholder="np. 170" maxlength="100"
-            value={{first_name}}>
 
+          <label for="amount">Ilość</label>
+          <input type="text" name="amount" id="amount" class="input-box" placeholder="np. 1" maxlength="100"
+            value={{amount}}>
+          <label for="price">Cena PLN</label>
+          <input type="text" name="price" id="price" class="input-box" placeholder="np. 170" maxlength="100"
+            value={{price}}>
+          <label for="first_name">Data</label>
+          <div class="input-group">
+            <select id="month_name" name="month_name" class="input-box-list">
+              <option value={{mtable.[0].month_name}}>{{mtable.[0].month_name}}</option>
+              <option value="Styczeń">Styczeń</option>
+              <option value="Luty">Luty</option>
+              <option value="Marzec">Marzec</option>
+              <option value="Kwiecień">Kwiecień</option>
+              <option value="Maj">Maj</option>
+              <option value="Czerwiec">Czerwiec</option>
+              <option value="Lipiec">Lipiec</option>
+              <option value="Sierpień">Sierpień</option>
+              <option value="Wrzesień">Wrzesień</option>
+              <option value="Październik">Październik</option>
+              <option value="Listopad">Listopad</option>
+              <option value="Grudzień">Grudzień</option>
+            </select>
+            <select id="month_year" name="month_year" class="input-box-list">
+              <option value={{mtable.[0].month_year}}>{{mtable.[0].month_year}}</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+            </select>
+          </div>
         <button type="submit" class="btn btn-reverse">Dodaj</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Anuluj</button>
+    
     </form>
   </div>
 </section>

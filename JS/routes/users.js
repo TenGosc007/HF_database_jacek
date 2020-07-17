@@ -205,7 +205,7 @@ router.post('/add', (req, res) => {
               total_product
             });
 
-            Sale.create({
+            Sale.create(({
               month_name,
               month_year,
               userId,
@@ -213,9 +213,7 @@ router.post('/add', (req, res) => {
               price,
               amount,
               total
-            })
-      
-            console.log("nowy: ", month_year, month_name, userId, total_product);
+            }));
       
             month = month-1;
             if(month < 1) {

@@ -11,6 +11,9 @@ const DisplayArr = db.define('displayArr', {
   last_name: {
     type: Sequelize.STRING
   },
+  userId: {
+    type: Sequelize.INTEGER
+  },
   month_name: {
     type: Sequelize.STRING
   },

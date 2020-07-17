@@ -4,6 +4,7 @@ const db = require('../config/database');
 const Sale = require('../models/Sale');
 const Product = require('../models/Product');
 const User = require('../models/User');
+const Month = require('../models/Month');
 const DisplayArr = require('../models/DisplayArr');
 const Sequelize = require('sequelize');
 const sequelize = require('sequelize');
@@ -51,6 +52,7 @@ router.get('/display/:id', (req, res) => {
         order: i,
         first_name: mtable[i].dataValues.user.dataValues.first_name,
         last_name: mtable[i].dataValues.user.dataValues.last_name,
+        userId: req.params.id,
         month_name: mtable[i].month_name,
         month_number: i,
         month_year: mtable[i].month_year,
@@ -83,25 +85,52 @@ router.get('/display/:id', (req, res) => {
 
     // Compute total sale of month
     odp[0].total = odp[0].price;
+    // Update Month table
+    Month.update({ 
+      total_product: odp[0].total
+    }, {
+      where: {
+        month_name: odp[0].month_name,
+        month_year: odp[0].month_year,
+        userId: odp[0].userId
+      }
+    })
+    .then(result => 
+      console.log("Table Month Updated")
+    )
+    .catch(err => console.log(err))
+
     for(i in odp) {
       odp[i].order = i;    // change order
       if (i==0) continue;
       odp[i].total = odp[i].price;
-      if (odp[i].month_number === odp[i-1].month_number && odp[i].month_year === odp[i-1].month_year) {
+      if (odp[i].month_name === odp[i-1].month_name && odp[i].product_name != "NULL"
+          && odp[i].month_year === odp[i-1].month_year) {
         odp[i].total = odp[i].total + odp[i-1].total;
         odp[i-1].total = -1;
         odp[i].month_number = -1;
-        odp[i].month_year = -1;
+        Month.update({ 
+          total_product: odp[i].total
+        }, {
+          where: {
+            month_name: odp[i].month_name,
+            month_year: odp[i].month_year,
+            userId: odp[i].userId
+          }
+        })
+        .then(result => 
+          console.log("Table Month Updated")
+        )
+        .catch(err => console.log(err))
       }
     } 
-
-    console.log(odp)
 
     DisplayArr.destroy({ truncate : true, cascade: false });
     for (i in odp){
       order = odp[i].order;
       first_name = odp[i].first_name;
       last_name = odp[i].last_name;
+      userId = odp[i].userId;
       month_name = odp[i].month_name;
       month_number = odp[i].month_number;
       month_year = odp[i].month_year;
@@ -113,6 +142,7 @@ router.get('/display/:id', (req, res) => {
         order,
         first_name,
         last_name,
+        userId,
         month_name,
         month_number,
         month_year,
@@ -132,16 +162,80 @@ router.get('/display/:id', (req, res) => {
 
 // Display table with details
 router.get('/total', (req, res) => {
+  const dateObj = new Date();
+  let year = dateObj.getUTCFullYear();
   DisplayArr.findAll({order: ['order']})
     .then(mtable =>{
       Product.findAll().
       then(products => {
         res.render('mtable', {
-          mtable, products
+          mtable, products, year
         })
       })
     })
     .catch(err => res.render('error', {error: err}))
+});
+
+// Display add product form
+router.get('/addnew', (req, res) => res.render('mtable'));
+
+// Add a user
+router.post('/addnew', (req, res) => {
+  let {
+    userId,
+    product_name,
+    price,
+    amount,
+    month_name,
+    month_year
+  } = req.body;
+  let errors = [];
+  
+  // Validate Fields
+  if (!product_name) {
+    errors.push({
+      text: 'Pojaj nazwę'
+    });
+  }
+  if (!price) {
+    errors.push({
+      text: 'Podaj cenę'
+    });
+  }
+
+  // Check for errors
+  if (errors.length > 0) {
+    res.render('add', {
+      errors,
+      product_name,
+      price
+    });
+  } else {
+    // Insert into table
+    Product.findAll({
+      attributes: ['id'],
+      where: {
+        product_name: product_name
+      }
+    }).then(products => {
+      productId = products[0].dataValues.id;
+      console.log(month_name, month_year, userId, productId, price, amount);
+      Sale.create({
+        month_name,
+        month_year,
+        userId,
+        productId,
+        price,
+        amount
+      })
+      .then(product => {
+        res.redirect(`/mtable/display/${userId}`)
+      })
+      .catch(err => res.render('error', {
+        error: err.message
+      }))
+    })
+  }
 });
 
 const month_day = (month) => {
