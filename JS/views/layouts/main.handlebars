@@ -30,7 +30,33 @@
     </nav>
   </header>
 
-  {{{body}}}
+  <div class="loader">
+    <span></span>
+  </div>
+
+  <section class="main">
+    {{{body}}}
+  </section>
+  <script>
+    const loader = document.querySelector('.loader');
+    const main = document.querySelector('.main');
+
+    function init() {
+      setTimeout(() => {
+        loader.style.opacity = 0;
+        loader.style.display = 'none';
+
+        main.style.display = 'block';
+        setTimeout(() => (main.style.opacity = 1), 20);
+      }, 600);
+    }
+
+    if(!location.search) {
+      setTimeout("location.replace(location.href+'?+')",500)
+    } else {
+      init();
+    }
+  </script>
 </body>
 
 </html>

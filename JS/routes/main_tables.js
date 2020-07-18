@@ -166,7 +166,7 @@ router.get('/total', (req, res) => {
   let year = dateObj.getUTCFullYear();
   DisplayArr.findAll({order: ['order']})
     .then(mtable =>{
-      Product.findAll().
+      Product.findAll({order: ['product_name']}).
       then(products => {
         res.render('mtable', {
           mtable, products, year
@@ -236,6 +236,30 @@ router.post('/addnew', (req, res) => {
       }))
     })
   }
+});
+
+// Display add product form
+router.get('/erruser', (req, res) => res.render('/users/display'));
+
+// Add a user
+router.post('/erruser/:id', (req, res) => {
+  console.log(req.params.id)
+  Month.destroy({
+      where: {
+          userId: req.params.id
+      }
+  });
+  Sale.destroy({
+    where: {
+        userId: req.params.id
+    }
+  });
+  User.destroy({
+    where: {
+        id: req.params.id
+    }
+  })
+  res.redirect("/users")
 });
 
 const month_day = (month) => {

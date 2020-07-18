@@ -5,6 +5,11 @@ const Product = require('../models/Product');
 const { STRING } = require('sequelize');
 
 const Sale = db.define('sale', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   month_name: {
     type: Sequelize.STRING,
     primaryKey: true

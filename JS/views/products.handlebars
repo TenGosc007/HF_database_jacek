@@ -7,19 +7,21 @@
     </tr>
   </table>
   {{#each products}}
-    <table class="display-table">
-      {{#if (change)}}    
-        <tr class='op_color'>
-          <td> <a href="/" class="user_name">{{product_name}}</a>
-          <td>{{price}} zł</td>
-        </tr>
-        {{else}}
-        <tr>
-          <td> <a href="/" class="user_name">{{product_name}}</a>
-          <td>{{price}} zł</td>
-        </tr>
-      {{/if}}
-    </table>
+    {{#if (ifNot product_name "NULL")}}
+      <table class="display-table">
+        {{#if (change)}}    
+          <tr class='op_color'>
+            <td> <a href="/" class="user_name">{{product_name}}</a>
+            <td>{{price}} zł</td>
+          </tr>
+          {{else}}
+          <tr>
+            <td> <a href="/" class="user_name">{{product_name}}</a>
+            <td>{{price}} zł</td>
+          </tr>
+        {{/if}}
+      </table>
+    {{/if}}
   {{else}}
     <p>Brak produktów</p>
   {{/each}}

@@ -6,7 +6,9 @@
         <a href="/users" class="user_name"><i class="fa fa-reply"></i></a> 
         {{first_name}} {{last_name}}
       </h2>
-      <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
+      <nav>
+        <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
+      </nav>
     </div>
   {{/if}}
   {{else}}
@@ -24,7 +26,8 @@
       <section class="container_mtable">
         <table class="display-table">
           <tr>
-            <th>{{product_name}}</th>
+            <th><a onclick="openEdit()" 
+              class="user_name">{{product_name}}</a></th>
           </tr>
           <tr class='op_color'>
             <td>{{amount}}</td>
@@ -51,6 +54,9 @@
     {{/if}}
   {{/each}}
 
+  <hr>
+  <button class="remove_button" onclick="openDelete()"><i class="fa fa-trash"></i></button>
+
   <div class="form-popup" id="myForm">
     <form action="/mtable/addnew" method="POST" class="form-container">
         <h1>Dodaj produkt</h1>
@@ -60,7 +66,9 @@
           <div class="input-group">
             <select id="product_name", name="product_name" class="input-box">
               {{#each products}}
-                <option value={{product_name}}>{{product_name}}</option>
+                {{#if (ifNot product_name "NULL")}}
+                  <option value={{product_name}}>{{product_name}}</option>
+                {{/if}}
               {{/each}}
             </select>
           </div>
@@ -109,14 +117,44 @@
     
     </form>
   </div>
+
+  <div class="form-popup" id="myEdit">
+    <form action="/mtable/addnew" method="POST" class="form-container">
+      <button type="submit" class="btn btn-reverse" onclick="closeEdit()">Edytuj</button>
+      <button type="button" class="btn delete" onclick="closeEdit()">Usuń</button>
+      <button type="button" class="btn cancel" onclick="closeEdit()">Anuluj</button>
+    </form>
+  </div>
+
+  <div class="form-popup" id="myDelete">
+    <form action="/mtable/erruser/{{mtable.[0].userId}}" method="POST" class="form-container">
+      <h1>Potwierdź operację</h1>
+      <button type="submit" class="btn delete" onclick="closeDelete()">Usuń</button>
+      <button type="button" class="btn cancel" onclick="closeDelete()">Anuluj</button>
+    </form>
+  </div>
+
 </section>
 
 <script>
   function openForm() {
     document.getElementById("myForm").style.display = "block";
   }
-
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
+  }
+
+  function openEdit() {
+    document.getElementById("myEdit").style.display = "block";
+  }
+  function closeEdit() {
+    document.getElementById("myEdit").style.display = "none";
+  }
+
+  function openDelete() {
+    document.getElementById("myDelete").style.display = "block";
+  }
+  function closeDelete() {
+    document.getElementById("myDelete").style.display = "none";
   }
 </script>

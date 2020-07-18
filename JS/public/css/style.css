@@ -36,6 +36,39 @@ h2 a:hover {
   color: var(--primary-hover-color);
 }
 
+.main {
+  opacity: 0;
+  display: none;
+  transition: opacity 1s ease-in;
+}
+
+.loader {
+  position: relative;
+  display: inline-block;
+  margin-top: 15rem;
+  top: 50%;
+  left: 45%;  
+  z-index: 1;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid var(--bg-color);
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .user_name {
   color: #333;
   text-decoration: none;
@@ -328,6 +361,25 @@ label {
   opacity: 1;
 }
 
+.remove_button {
+  position: relative;
+  border: 3px solid;
+  border-radius: 3px;
+  color: rgb(201, 36, 3);
+  font-size: 20px;
+  padding: 1px 4px;
+  justify-content: center;
+  height: 2rem;
+  left: 85%;
+}
+
+.remove_button:hover {
+  background: rgb(158, 0, 0);
+  border: 3px solid rgb(158, 0, 0);
+  color: #fff;
+  opacity: 1;
+}
+
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
@@ -379,6 +431,17 @@ label {
   border: none;
 }
 
+/* Add a red background color to the cancel button */
+.delete {
+  background-color: rgba(201, 36, 36, 0.815);
+  border: none;
+}
+
+.delete:hover {
+  background-color: rgba(158, 0, 0, 0.781);
+  border: none;
+}
+
 /* Add some hover effects to buttons */
 .btn:hover, .open-button:hover {
   opacity: 1;
@@ -390,6 +453,10 @@ label {
   align-items: center;
   padding: 1rem;
   padding-right: 6rem;
+}
+
+.edit_panel button {
+  position: right;
 }
 
 /* -------------------------------------------------------------------- */
@@ -439,6 +506,12 @@ label {
 @media (max-width: 500px) {
   .container {
     padding: 1rem;
+  }
+
+  .loader {
+    margin-top: 10rem;
+    left: 38%;
+    top: 32%;
   }
 
   header nav li {
