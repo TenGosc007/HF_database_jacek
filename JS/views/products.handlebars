@@ -1,5 +1,10 @@
 <section id="products" class="container">
   <h2>Lista Produktów</h2>
+  {{#if err}}
+    <div class="error">
+      <p>błąd</p>
+    </div>
+  {{/if}}
   <table class="display-table">
     <tr>
       <th>Nazwa</th>
@@ -11,12 +16,12 @@
       <table class="display-table">
         {{#if (change)}}    
           <tr class='op_color'>
-            <td> <a href="/" class="user_name">{{product_name}}</a>
+            <td> <a href="/products/editproduct/{{id}}/0" class="user_name">{{product_name}}</a>
             <td>{{price}} zł</td>
           </tr>
           {{else}}
           <tr>
-            <td> <a href="/" class="user_name">{{product_name}}</a>
+            <td> <a href="/products/editproduct/{{id}}/0" class="user_name">{{product_name}}</a>
             <td>{{price}} zł</td>
           </tr>
         {{/if}}

@@ -7,7 +7,6 @@ const { STRING } = require('sequelize');
 const Sale = db.define('sale', {
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
     autoIncrement: true
   },
   month_name: {

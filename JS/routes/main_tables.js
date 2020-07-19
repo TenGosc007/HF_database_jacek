@@ -238,10 +238,10 @@ router.post('/addnew', (req, res) => {
   }
 });
 
-// Display add product form
+// Display erase product form
 router.get('/erruser', (req, res) => res.render('/users/display'));
 
-// Add a user
+// Erase a user
 router.post('/erruser/:id', (req, res) => {
   console.log(req.params.id)
   Month.destroy({
@@ -260,6 +260,37 @@ router.post('/erruser/:id', (req, res) => {
     }
   })
   res.redirect("/users")
+});
+
+// Get product list
+router.get('/editmtable/:id', (req, res) =>
+  DisplayArr.findAll({where: {id: req.params.id}})
+  .then(products =>{
+    res.render('editmtable', {
+      products
+    })
+  })
+  .catch(err => res.render('error', {
+    error: err
+  })));
+
+// Display erase product form
+router.get('/errmtable', (req, res) => res.render('/mtable'));
+
+// Erase a product
+router.post('/errmtable/:year/:month/:user/:product', (req, res) => {
+  console.log('test: ', req.params.year, req.params.month, req.params.user, req.params.product)
+  Product.findAll({where: {product_name: req.params.product}})
+  .then(prod => {
+    Sale.destroy({
+      where: {
+        month_year: req.params.year,
+        month_name: req.params.month,
+        userId: req.params.user,
+        productId: prod[0].dataValues.id
+      }
+    }).then(res.redirect(`/mtable/display/${req.params.user}`))
+  })
 });
 
 const month_day = (month) => {

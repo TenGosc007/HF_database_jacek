@@ -26,7 +26,7 @@
       <section class="container_mtable">
         <table class="display-table">
           <tr>
-            <th><a onclick="openEdit()" 
+            <th><a href="/mtable/editmtable/{{id}}" 
               class="user_name">{{product_name}}</a></th>
           </tr>
           <tr class='op_color'>
@@ -118,14 +118,6 @@
     </form>
   </div>
 
-  <div class="form-popup" id="myEdit">
-    <form action="/mtable/addnew" method="POST" class="form-container">
-      <button type="submit" class="btn btn-reverse" onclick="closeEdit()">Edytuj</button>
-      <button type="button" class="btn delete" onclick="closeEdit()">Usuń</button>
-      <button type="button" class="btn cancel" onclick="closeEdit()">Anuluj</button>
-    </form>
-  </div>
-
   <div class="form-popup" id="myDelete">
     <form action="/mtable/erruser/{{mtable.[0].userId}}" method="POST" class="form-container">
       <h1>Potwierdź operację</h1>
@@ -142,13 +134,6 @@
   }
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
-  }
-
-  function openEdit() {
-    document.getElementById("myEdit").style.display = "block";
-  }
-  function closeEdit() {
-    document.getElementById("myEdit").style.display = "none";
   }
 
   function openDelete() {

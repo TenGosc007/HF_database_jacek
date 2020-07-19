@@ -459,6 +459,13 @@ label {
   position: right;
 }
 
+.error {
+  padding: 5px;
+  border: rgba(201, 36, 36, 0.815) dotted 1px;
+  color: rgba(158, 0, 0, 0.781);
+  margin-bottom: 15px;
+}
+
 /* -------------------------------------------------------------------- */
 /* Tablets */
 @media (max-width: 800px) {

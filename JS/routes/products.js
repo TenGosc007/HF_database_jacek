@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/database');
 const Product = require('../models/Product');
+const Sale = require('../models/Sale');
 const Sequelize = require('sequelize');
+const { search } = require('./users');
 const Op = Sequelize.Op;
 
 // Get product list
@@ -56,6 +58,41 @@ router.post('/addpr', (req, res) => {
         error: err.message
       }))
   }
+});
+
+// Get product list
+router.get('/editproduct/:id/:err', (req, res) =>
+  Product.findAll({where: {id: req.params.id}})
+  .then(products =>{
+    const err = req.params.err;
+    res.render('editproduct', {
+      products, err
+    })
+  })
+  .catch(err => res.render('error', {
+    error: err
+  })));
+  
+// Display erase product form
+router.get('/errproduct', (req, res) => res.render('/products'));
+
+// Erase a product
+router.post('/errproduct/:id', (req, res) => {
+  Sale.findAll({where: {productId: req.params.id}})
+  .then(odp => {
+    if(odp[0]) {
+      res.redirect(`/products/editproduct/${req.params.id}/1`)
+    } else {
+      Product.destroy({
+        where: {
+            id: req.params.id
+        }
+      }).then(res.redirect("/products"))
+      .catch(err => res.render('error', {
+        error: err.message
+      }));
+    } 
+  })
 });
 
 module.exports = router;

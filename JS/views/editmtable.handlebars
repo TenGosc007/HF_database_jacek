@@ -1,0 +1,52 @@
+<section id="products" class="container">
+    {{#each products}}
+        <div class="edit_panel">
+        <h2>Edytuj produkt</h2>
+        <nav>
+            <button class="remove_button" onclick="openDelete()"><i class="fa fa-trash"></i></button>
+        </nav>
+        </div>
+        <form action="/" method="GET">
+            <div class="input-group">
+                <label for="product_name">Nazwa produktu</label>
+                <input type="text" name="product_name" id="product_name" class="input-box" placeholder={{product_name}} maxlength="100"
+                value={{product_name}}>
+            </div>
+            <div class="input-group">
+                <label for="amount">Liczba sztuk</label>
+                <input type="text" name="amount" id="amount" class="input-box" placeholder={{amount}} maxlength="100"
+                value={{amount}}>
+            </div>
+            <div class="input-group">
+                <label for="price">Cena PLN</label>
+                <input type="text" name="price" id="price" class="input-box" placeholder={{price}} maxlength="100"
+                value={{price}}>
+            </div>
+            <div>
+                <input type="submit" value="Zatwierdź" class="btn btn-reverse" style="display: inline-block; margin-right: 10px;">
+                <a href="/products">
+                    <button type="button" class="btn cancel" style="display: inline-block; margin-top: 10px;">Anuluj</button>
+                </a>
+            </div>
+        </form>
+    {{/each}}
+
+    <div class="form-popup" id="myDelete">
+        <form action="/mtable/errmtable/{{products.[0].month_year}}/{{products.[0].month_name}}/{{products.[0].userId}}/{{products.[0].product_name}}" 
+        method="POST" class="form-container">
+            <h1>Potwierdź operację</h1>
+            <button type="submit" class="btn delete" onclick="closeDelete()">Usuń</button>
+            <button type="button" class="btn cancel" onclick="closeDelete()">Anuluj</button>
+        </form>
+    </div>
+
+</section>
+
+<script>
+  function openDelete() {
+    document.getElementById("myDelete").style.display = "block";
+  }
+  function closeDelete() {
+    document.getElementById("myDelete").style.display = "none";
+  }
+</script>
