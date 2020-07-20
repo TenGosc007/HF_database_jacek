@@ -3,7 +3,8 @@ const db = require('../config/database');
 
 const Product = db.define('product', {
   id: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
     primaryKey: true
   },
   product_name: {
