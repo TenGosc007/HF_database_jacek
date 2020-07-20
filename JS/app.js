@@ -6,6 +6,7 @@ const {
 } = require('@handlebars/allow-prototype-access');
 const bodyParser = require('body-parser');
 const path = require('path');
+const Product = require('../JS/models/Product');
 let boleanVar = true;
 
 // Database
@@ -91,6 +92,15 @@ Handlebars.registerHelper('pprev', function (month, year) {
     return true;
   else
     return false;
+});
+
+Product.findAll()
+.then(odp => {
+  if(!odp[0])
+    Product.create({
+      product_name: 'NULL',
+      price: 0
+    })
 });
 
 // Body Parser
