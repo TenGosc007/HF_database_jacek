@@ -177,7 +177,7 @@ router.get('/total', (req, res) => {
 });
 
 // Display add product form
-router.get('/addnew', (req, res) => res.render('mtable'));
+router.get('/addnew', (req, res) => res.render('addnew'));
 
 // Add a user
 router.post('/addnew', (req, res) => {
@@ -205,8 +205,8 @@ router.post('/addnew', (req, res) => {
 
   // Check for errors
   if (errors.length > 0) {
-    res.render('add', {
-      errors,
+    res.render('addnew', {
+      errors: 'test',
       product_name,
       price
     });
@@ -291,6 +291,40 @@ router.post('/errmtable/:year/:month/:user/:product', (req, res) => {
       }
     }).then(res.redirect(`/mtable/display/${req.params.user}`))
   })
+});
+
+// Add a product
+router.post('/editmtable/:id', (req, res) => {
+  let {
+    amount,
+    price,
+    product_name,
+    userId,
+    month_name,
+    month_year
+  } = req.body;
+
+  // Insert into table
+  Product.findAll({attributes: ['id'], where: {product_name}})
+  .then(odp => {
+    Sale.update({ 
+      amount,
+      price
+    }, {
+      where: {
+        month_name,
+        month_year,
+        userId,
+        productId: odp[0].dataValues.id
+      }
+    })
+    .then(result => {
+      console.log("Table Mtable Updated");
+      res.redirect(`/mtable/display/${userId}`);
+    }
+    )
+    .catch(err => console.log(err))
+  });
 });
 
 const month_day = (month) => {

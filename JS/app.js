@@ -94,15 +94,6 @@ Handlebars.registerHelper('pprev', function (month, year) {
     return false;
 });
 
-Product.findAll()
-.then(odp => {
-  if(!odp[0])
-    Product.create({
-      product_name: 'NULL',
-      price: 0
-    })
-});
-
 // Body Parser
 app.use(bodyParser.urlencoded({
   extended: false

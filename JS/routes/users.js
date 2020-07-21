@@ -40,6 +40,26 @@ router.get('/', (req, res) => {
 
     let odp = new Array(users.length);
     for(let i=0; i<users.length; i++) {
+
+      // Create new column for user, when next month arrived
+      Month.findAll({
+        where: {
+          userId: users[i].dataValues.id,
+          month_name: month_1,
+          month_year: year
+        }
+      })
+      .then(odp => {
+        if(!odp[0]){
+          Month.create({
+            month_name: month_1,
+            month_year: year,
+            userId: users[i].dataValues.id,
+            total_product: 0
+          });
+        }
+      });
+
       odp[i] = {
         id: users[i].dataValues.id,
         first_name: users[i].dataValues.first_name,

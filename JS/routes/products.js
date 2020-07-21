@@ -10,14 +10,24 @@ const Op = Sequelize.Op;
 // Get product list
 router.get('/', (req, res) =>
   Product.findAll({order: ['product_name']})
-  .then(products => res.render('products', {
+  .then(products =>{ 
+    Product.findAll()
+    .then(odp => {
+      if(!odp[0])
+        Product.create({
+          product_name: 'NULL',
+          price: 0
+        })
+    });
+    res.render('products', {
     products
-  }))
+  })
+})
   .catch(err => res.render('error', {
     error: err
   })));
 
-  // Display add product form
+// Display add product form
 router.get('/addpr', (req, res) => res.render('addpr'));
 
 // Add a product
@@ -93,6 +103,30 @@ router.post('/errproduct/:id', (req, res) => {
       }));
     } 
   })
+});
+
+// Add a product
+router.post('/editproduct/:id/:err', (req, res) => {
+  let {
+    product_name,
+    price
+  } = req.body;
+
+  // Insert into table
+  Product.update({ 
+    product_name,
+    price
+  }, {
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(result => {
+    console.log("Table Product Updated");
+    res.redirect("/products");
+  }
+  )
+  .catch(err => console.log(err))
 });
 
 module.exports = router;

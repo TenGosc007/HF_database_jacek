@@ -6,11 +6,10 @@
             <button class="remove_button" onclick="openDelete()"><i class="fa fa-trash"></i></button>
         </nav>
         </div>
-        <form action="/" method="GET">
+        <form action="/mtable/editmtable/0" method="POST">
             <div class="input-group">
                 <label for="product_name">Nazwa produktu</label>
-                <input type="text" name="product_name" id="product_name" class="input-box" placeholder={{product_name}} maxlength="100"
-                value={{product_name}}>
+                <h2>{{product_name}}</h2>
             </div>
             <div class="input-group">
                 <label for="amount">Liczba sztuk</label>
@@ -22,9 +21,13 @@
                 <input type="text" name="price" id="price" class="input-box" placeholder={{price}} maxlength="100"
                 value={{price}}>
             </div>
+            <input name="month_name" value={{month_name}}>
+            <input name="month_year" value={{month_year}}>
+            <input name="userId" value={{userId}}>
+            <input name="product_name" value={{product_name}}>
             <div>
                 <input type="submit" value="Zatwierdź" class="btn btn-reverse" style="display: inline-block; margin-right: 10px;">
-                <a href="/products">
+                <a href="/mtable/total">
                     <button type="button" class="btn cancel" style="display: inline-block; margin-top: 10px;">Anuluj</button>
                 </a>
             </div>
