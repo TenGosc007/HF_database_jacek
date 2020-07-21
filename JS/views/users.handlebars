@@ -11,46 +11,48 @@
     </tr>
   </table>
   {{#each display}}
-    <table class="display-table">
-      {{#if (change)}}    
-        <tr class='op_color'>
-          <td> <a href="/mtable/display/{{userId}}" class="user_name">{{first_name}}</a>
-            {{#if (ifPos position 'supervisor')}}
-              <span class="char-sigh">S</span></td>
-            {{else if (ifPos position 'partner')}}
-              <span class="char-sigh">P</span></td>
-            {{else if (ifPos position 'starszy')}}
-              <span class="char-sigh">ST</span></td>
-          {{/if}}
-          <td>{{last_name}}</td>
-          <td></td>
-          <td>{{total_product_1}}</td>
-          <td></td>
-          <td>{{total_product_2}}</td>
-          <td></td>
-          <td>{{total_product_3}}</td>
-        </tr>
-      {{else}}
-        <tr>
-          <td> <a href="/mtable/display/{{userId}}" class="user_name">{{first_name}}</a>
-            {{#if (ifPos position 'supervisor')}}
-              <span class="char-sigh">S</span></td>
-            {{else if (ifPos position 'partner')}}
-              <span class="char-sigh">P</span></td>
-            {{else if (ifPos position 'starszy')}}
-              <span class="char-sigh">ST</span></td>
-          {{/if}}
-          </td>
-          <td>{{last_name}}</td>
-          <td></td>
-          <td>{{total_product_1}}</td>
-          <td></td>
-          <td>{{total_product_2}}</td>
-          <td></td>
-          <td>{{total_product_3}}</td>
-        </tr>
-      {{/if}}
-    </table>
+    {{#if (ifNot userId 1)}}
+      <table class="display-table">
+        {{#if (change)}}    
+          <tr class='op_color'>
+            <td> <a href="/mtable/display/{{userId}}" class="user_name">{{first_name}}</a>
+              {{#if (ifPos position 'supervisor')}}
+                <span class="char-sigh">S</span></td>
+              {{else if (ifPos position 'partner')}}
+                <span class="char-sigh">P</span></td>
+              {{else if (ifPos position 'starszy')}}
+                <span class="char-sigh">ST</span></td>
+            {{/if}}
+            <td>{{last_name}}</td>
+            <td>{{total_carnet_1}}</td>
+            <td>{{total_product_1}}</td>
+            <td>{{total_carnet_2}}</td>
+            <td>{{total_product_2}}</td>
+            <td>{{total_carnet_3}}</td>
+            <td>{{total_product_3}}</td>
+          </tr>
+        {{else}}
+          <tr>
+            <td> <a href="/mtable/display/{{userId}}" class="user_name">{{first_name}}</a>
+              {{#if (ifPos position 'supervisor')}}
+                <span class="char-sigh">S</span></td>
+              {{else if (ifPos position 'partner')}}
+                <span class="char-sigh">P</span></td>
+              {{else if (ifPos position 'starszy')}}
+                <span class="char-sigh">ST</span></td>
+            {{/if}}
+            </td>
+            <td>{{last_name}}</td>
+            <td>{{total_carnet_1}}</td>
+            <td>{{total_product_1}}</td>
+            <td>{{total_carnet_2}}</td>
+            <td>{{total_product_2}}</td>
+            <td>{{total_carnet_3}}</td>
+            <td>{{total_product_3}}</td>
+          </tr>
+        {{/if}}
+      </table>
+    {{/if}}
   {{else}}
     <p>Brak osób</p>
   {{/each}}

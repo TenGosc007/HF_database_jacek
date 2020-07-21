@@ -17,12 +17,21 @@ const Display = db.define('display', {
   total_product_1: {
     type: Sequelize.INTEGER
   },
+  total_carnet_1: {
+    type: Sequelize.INTEGER
+  },
   total_product_2: {
+    type: Sequelize.INTEGER
+  },
+  total_carnet_2: {
     type: Sequelize.INTEGER
   },
   total_product_3: {
     type: Sequelize.INTEGER
   },
+  total_carnet_3: {
+    type: Sequelize.INTEGER
+  }
 });
 
 Display.sync().then(() => {

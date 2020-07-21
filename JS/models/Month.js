@@ -21,6 +21,9 @@ const Month = db.define('month', {
   },
   total_product: {
     type: Sequelize.INTEGER
+  },
+  total_carnet: {
+    type: Sequelize.INTEGER
   }
 });
 

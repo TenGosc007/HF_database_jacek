@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
       model: Month,
       as: 'month',
       required: false,
-      attributes: ['month_name', 'month_year', 'total_product'],
+      attributes: ['month_name', 'month_year', 'total_product', 'total_carnet'],
     }],
     order: ['first_name']
   }).then(users => {
@@ -55,7 +55,8 @@ router.get('/', (req, res) => {
             month_name: month_1,
             month_year: year,
             userId: users[i].dataValues.id,
-            total_product: 0
+            total_product: 0,
+            total_carnet: 0
           });
         }
       });
@@ -67,7 +68,8 @@ router.get('/', (req, res) => {
         position: users[i].dataValues.position,
         month_name: users[i].dataValues.month.dataValues.month_name,
         month_year: users[i].dataValues.month.dataValues.month_year,
-        total_product: users[i].dataValues.month.dataValues.total_product
+        total_product: users[i].dataValues.month.dataValues.total_product,
+        total_carnet: users[i].dataValues.month.dataValues.total_carnet
       }
     }
 
@@ -79,7 +81,7 @@ router.get('/', (req, res) => {
     }
     var finArr = new Array(coutner);
     for (var i = 0; i < finArr.length; i++) {
-      finArr[i] = new Array(7);
+      finArr[i] = new Array(10);
     }
 
     let j=0;
@@ -92,14 +94,17 @@ router.get('/', (req, res) => {
         finArr[j][2] = odp[i].last_name;
         finArr[j][3] = odp[i].position;
         finArr[j][4] = odp[i].total_product;
+        finArr[j][5] = odp[i].total_carnet;
         k++;
       }
       if(odp[i].month_name === month_2) {
-        finArr[j][5] = odp[i].total_product;
+        finArr[j][6] = odp[i].total_product;
+        finArr[j][7] = odp[i].total_carnet;
         k++;
       }
       if(odp[i].month_name === month_3) {
-        finArr[j][6] = odp[i].total_product;
+        finArr[j][8] = odp[i].total_product;
+        finArr[j][9] = odp[i].total_carnet;
         k++;
       }
     }
@@ -111,16 +116,22 @@ router.get('/', (req, res) => {
       last_name = finArr[i][2];
       position = finArr[i][3];
       total_product_1 = finArr[i][4];
-      total_product_2 = finArr[i][5];
-      total_product_3 = finArr[i][6];
+      total_carnet_1 = finArr[i][5];
+      total_product_2 = finArr[i][6];
+      total_carnet_2 = finArr[i][7];
+      total_product_3 = finArr[i][8];
+      total_carnet_3 = finArr[i][9];
       Display.create({
         userId,
         first_name,
         last_name,
         position,
         total_product_1,
+        total_carnet_1,
         total_product_2,
-        total_product_3
+        total_carnet_2,
+        total_product_3,
+        total_carnet_3
       })
     }
     res.redirect('/users/display');
@@ -162,6 +173,7 @@ router.post('/add', (req, res) => {
   let month = dateObj.getUTCMonth() + 1;
   let year = dateObj.getUTCFullYear();
   let total_product = 0;
+  let total_carnet = 0;
   let userId = 0;
 
   let {
@@ -222,7 +234,8 @@ router.post('/add', (req, res) => {
               month_name,
               month_year,
               userId,
-              total_product
+              total_product,
+              total_carnet
             });
 
             Sale.create(({

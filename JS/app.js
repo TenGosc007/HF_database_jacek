@@ -114,7 +114,7 @@ app.use('/users', require('./routes/users'));
 app.use('/products', require('./routes/products'));
 
 // Sale routes
-app.use('/sales', require('./routes/sales'));
+app.use('/summary', require('./routes/summary'));
 
 // Main table
 app.use('/mtable', require('./routes/main_tables'));

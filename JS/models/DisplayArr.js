@@ -32,9 +32,12 @@ const DisplayArr = db.define('displayArr', {
   price: {
     type: Sequelize.INTEGER
   },
-  total: {
+  total_product: {
     type: Sequelize.INTEGER
   },
+  total_carnet: {
+    type: Sequelize.INTEGER
+  }
 });
 
 DisplayArr.sync().then(() => {

@@ -1,5 +1,5 @@
-<section id="mtable" class="container">
-  {{#each mtable}}
+<section id="summary" class="container">
+  {{#each summary}}
   {{#if @first}}
     <div class="edit_panel">
       <h2>
@@ -12,11 +12,11 @@
     </div>
   {{/if}}
   {{else}}
-  <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> </h2>
+    <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> </h2>
   {{/each}}
 
 
-  {{#each mtable}}
+  {{#each summary}}
     {{#if (ifNot amount 0)}}
       {{#if (ifNot month_number -1)}}
         <hr>
@@ -26,7 +26,7 @@
       <section class="container_mtable">
         <table class="display-table">
           <tr>
-            <th><a href="/mtable/editmtable/{{id}}" 
+            <th><a href="/summary/editsummary/{{id}}" 
               class="user_name">{{product_name}}</a></th>
           </tr>
           <tr class='op_color'>
@@ -37,13 +37,11 @@
           </tr>
         </table>  
       </section>
-      {{#if (ifNot total_product -1)}}
+      {{#if (ifNot total -1)}}
         <section class="sum_of_month">
           <table class="display-sumtable">
-            <h3 style="margin-bottom: 0.35em; margin-top: 0.5em;">Suma:</h3>
             <tr>
-              <th>Produkty: {{total_product}} zł</th>
-              <th>Karnety: {{total_carnet}} zł</th>
+              <th>Suma: {{total}} zł</th>
             </tr>
           </table>
         </section>
@@ -57,12 +55,10 @@
   {{/each}}
 
   <hr>
-  <button class="remove_button" onclick="openDelete()"><i class="fa fa-trash"></i></button>
-
   <div class="form-popup" id="myForm">
-    <form action="/mtable/addnew" method="POST" class="form-container">
+    <form action="/summary/addnew" method="POST" class="form-container">
         <h1>Dodaj produkt</h1>
-          <input name="userId" value={{mtable.[0].userId}} style="display:none;"> 
+          <input name="userId" value={{summary.[0].userId}} style="display:none;"> 
 
           <label for="product_name">Produkt</label>
           <div class="input-group">
@@ -84,7 +80,7 @@
           <label for="first_name">Data</label>
           <div class="input-group">
             <select id="month_name" name="month_name" class="input-box-list">
-              <option value={{mtable.[0].month_name}}>{{mtable.[0].month_name}}</option>
+              <option value={{summary.[0].month_name}}>{{summary.[0].month_name}}</option>
               <option value="Styczeń">Styczeń</option>
               <option value="Luty">Luty</option>
               <option value="Marzec">Marzec</option>
@@ -99,7 +95,7 @@
               <option value="Grudzień">Grudzień</option>
             </select>
             <select id="month_year" name="month_year" class="input-box-list">
-              <option value={{mtable.[0].month_year}}>{{mtable.[0].month_year}}</option>
+              <option value={{summary.[0].month_year}}>{{summary.[0].month_year}}</option>
               <option value="2019">2019</option>
               <option value="2020">2020</option>
               <option value="2021">2021</option>
@@ -120,14 +116,6 @@
     </form>
   </div>
 
-  <div class="form-popup" id="myDelete">
-    <form action="/mtable/erruser/{{mtable.[0].userId}}" method="POST" class="form-container">
-      <h1>Potwierdź operację</h1>
-      <button type="submit" class="btn delete" onclick="closeDelete()">Usuń</button>
-      <button type="button" class="btn cancel" onclick="closeDelete()">Anuluj</button>
-    </form>
-  </div>
-
 </section>
 
 <script>
@@ -136,12 +124,5 @@
   }
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
-  }
-
-  function openDelete() {
-    document.getElementById("myDelete").style.display = "block";
-  }
-  function closeDelete() {
-    document.getElementById("myDelete").style.display = "none";
   }
 </script>
