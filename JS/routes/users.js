@@ -108,6 +108,14 @@ router.get('/', (req, res) => {
         k++;
       }
     }
+    
+    // Total sum
+    let totalSum_product_1 = 0;
+    let totalSum_carnet_1 = 0;
+    let totalSum_product_2 = 0;
+    let totalSum_carnet_2 = 0;
+    let totalSum_product_3 = 0;
+    let totalSum_carnet_3 = 0;
 
     Display.destroy({ truncate : true, cascade: false });
     for (i in finArr){
@@ -121,6 +129,16 @@ router.get('/', (req, res) => {
       total_carnet_2 = finArr[i][7];
       total_product_3 = finArr[i][8];
       total_carnet_3 = finArr[i][9];
+
+      if (finArr[i][0] != 1) {
+        totalSum_product_1 += total_product_1;
+        totalSum_carnet_1 += total_carnet_1;
+        totalSum_product_2 += total_product_2;
+        totalSum_carnet_2 += total_carnet_2;
+        totalSum_product_3 += total_product_3;
+        totalSum_carnet_3 += total_carnet_3;
+      }
+      
       Display.create({
         userId,
         first_name,
@@ -131,9 +149,17 @@ router.get('/', (req, res) => {
         total_product_2,
         total_carnet_2,
         total_product_3,
-        total_carnet_3
+        total_carnet_3,
+
+        totalSum_product_1,
+        totalSum_carnet_1,
+        totalSum_product_2,
+        totalSum_carnet_2,
+        totalSum_product_3,
+        totalSum_carnet_3
       })
     }
+
     res.redirect('/users/display');
 
   }).catch(err => res.render('error', {

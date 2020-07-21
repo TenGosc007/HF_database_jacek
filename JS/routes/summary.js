@@ -59,7 +59,8 @@ router.get('/display/:id', (req, res) => {
         product_name: summary[i].dataValues.product.dataValues.product_name,
         amount: summary[i].amount,
         price: summary[i].price,
-        total: 0
+        total_product: 0,
+        total_carnet: 0
       }
     }
 
@@ -84,10 +85,15 @@ router.get('/display/:id', (req, res) => {
     });
 
     // Compute total sale of month
-    odp[0].total = odp[0].price;
+    if(odp[0].product_name == 'Karnet' || odp[0].product_name == 'Karnet_XL')
+      odp[0].total_carnet = odp[0].price;
+    else
+      odp[0].total_product = odp[0].price;
+
     // Update Month table
     Month.update({ 
-      total_product: odp[0].total
+      total_product: odp[0].total_product,
+      total_carnet: odp[0].total_carnet
     }, {
       where: {
         month_name: odp[0].month_name,
@@ -103,25 +109,58 @@ router.get('/display/:id', (req, res) => {
     for(i in odp) {
       odp[i].order = i;    // change order
       if (i==0) continue;
-      odp[i].total = odp[i].price;
-      if (odp[i].month_name === odp[i-1].month_name && odp[i].product_name != "NULL"
+
+      if(odp[i].product_name == 'Karnet' || odp[i].product_name == 'Karnet_XL') {
+        odp[i].total_carnet = odp[i].price;
+
+        if (odp[i].month_name === odp[i-1].month_name && odp[i].product_name != "NULL"
           && odp[i].month_year === odp[i-1].month_year) {
-        odp[i].total = odp[i].total + odp[i-1].total;
-        odp[i-1].total = -1;
-        odp[i].month_number = -1;
-        Month.update({ 
-          total_product: odp[i].total
-        }, {
-          where: {
-            month_name: odp[i].month_name,
-            month_year: odp[i].month_year,
-            userId: odp[i].userId
-          }
-        })
-        .then(result => 
-          console.log("Table Month Updated")
-        )
-        .catch(err => console.log(err))
+          odp[i].total_product = odp[i].total_product + odp[i-1].total_product;
+          odp[i].total_carnet = odp[i].total_carnet + odp[i-1].total_carnet;
+          odp[i-1].total_product = -1;
+          odp[i-1].total_carnet = -1;
+          odp[i].month_number = -1;
+          Month.update({ 
+            total_product: odp[i].total_product,
+            total_carnet: odp[i].total_carnet
+          }, {
+            where: {
+              month_name: odp[i].month_name,
+              month_year: odp[i].month_year,
+              userId: odp[i].userId
+            }
+          })
+          .then(result => 
+            console.log("Table Month Updated")
+          )
+          .catch(err => console.log(err))
+        }
+      }
+      else {
+        odp[i].total_product = odp[i].price;
+
+        if (odp[i].month_name === odp[i-1].month_name && odp[i].product_name != "NULL"
+          && odp[i].month_year === odp[i-1].month_year) {
+          odp[i].total_product = odp[i].total_product + odp[i-1].total_product;
+          odp[i].total_carnet = odp[i].total_carnet + odp[i-1].total_carnet;
+          odp[i-1].total_product = -1;
+          odp[i-1].total_carnet = -1;
+          odp[i].month_number = -1;
+          Month.update({ 
+            total_product: odp[i].total_product,
+            total_carnet: odp[i].total_carnet
+          }, {
+            where: {
+              month_name: odp[i].month_name,
+              month_year: odp[i].month_year,
+              userId: odp[i].userId
+            }
+          })
+          .then(result => 
+            console.log("Table Month Updated")
+          )
+          .catch(err => console.log(err))
+        }
       }
     } 
 
@@ -137,7 +176,8 @@ router.get('/display/:id', (req, res) => {
       product_name = odp[i].product_name;
       amount = odp[i].amount;
       price = odp[i].price;
-      total = odp[i].total;
+      total_product = odp[i].total_product;
+      total_carnet = odp[i].total_carnet;
       DisplayArr.create({
         order,
         first_name,
@@ -149,7 +189,8 @@ router.get('/display/:id', (req, res) => {
         product_name,
         amount,
         price,
-        total
+        total_product,
+        total_carnet
       })
     }
     if(!totalAll) {totalAll = 0;}
