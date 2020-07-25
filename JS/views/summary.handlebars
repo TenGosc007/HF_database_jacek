@@ -6,21 +6,44 @@
           <a href="/users" class="user_name"><i class="fa fa-reply"></i></a> 
           {{first_name}} {{last_name}}
         </h2>
-        <nav>
-          <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
-        </nav>
       </div>
     {{/if}}
   {{else}}
     <h2><a href="/users" class="user_name"><i class="fa fa-reply"></i></a> </h2>
   {{/each}}
 
-  <div class="edit_panel", style="padding: 0;">
-    <h2 style="margin-bottom: 0;">Renament:</h2>
+  <div class="edit_panel" style="padding: 0;">
+    <h2 style="margin: 0;">Renament: </h2>
+    <nav style="padding-right: 6rem;">
+      <button class="add_button" onclick="openRen()"><i class="fa fa-plus"></i></button>
+    </nav>
   </div>
+  <hr>
 
-  <div class="edit_panel", style="padding: 0;">
-    <h2 style="margin-bottom: 0;">Produkty:</h2>
+  {{#each renament}}
+    {{#if (ifNot amount 0)}}
+      <section class="container_mtable">
+        <table class="display-table">
+          <tr>
+            <th><a href="/summary/editsummary/{{id}}" 
+              class="user_name">{{product_name}}</a></th>
+          </tr>
+          <tr class='op_color'>
+            <td>{{amount}}</td>
+          </tr>
+          <tr class='op_color'>
+            <td>{{price}} zł</td>
+          </tr>
+        </table>  
+      </section>
+    {{/if}}
+  {{/each}}
+
+  <div class="edit_panel" style="padding: 0; margin-top: 3rem;">
+    <h2 style="margin: 0;">Produkty: </h2>
+    <nav style="padding-right: 6rem;">
+      <button class="add_button" onclick="openForm()"><i class="fa fa-plus"></i></button>
+    </nav>
   </div>
 
   {{#each summary}}
@@ -125,11 +148,32 @@
     </form>
   </div>
 
-  <div class="form-popup" id="myDelete">
-    <form action="/summary/erruser/{{summary.[0].userId}}" method="POST" class="form-container">
-      <h1>Potwierdź operację</h1>
-      <button type="submit" class="btn delete" onclick="closeDelete()">Usuń</button>
-      <button type="button" class="btn cancel" onclick="closeDelete()">Anuluj</button>
+    <div class="form-popup" id="myRen">
+    <form action="/summary/addren" method="POST" class="form-container">
+        <h1>Dodaj produkt</h1>
+          <input name="userId" value={{summary.[0].userId}} style="display:none;"> 
+
+          <label for="product_name">Produkt</label>
+          <div class="input-group">
+            <select id="product_name", name="product_name" class="input-box">
+              {{#each products}}
+                {{#if (ifNot product_name "NULL")}}
+                  <option value={{product_name}}>{{product_name}}</option>
+                {{/if}}
+              {{/each}}
+            </select>
+          </div>
+
+          <label for="amount">Ilość</label>
+          <input type="text" name="amount" id="amount" class="input-box" placeholder="np. 1" maxlength="100"
+            value={{amount}}>
+          <label for="price">Cena PLN</label>
+          <input type="text" name="price" id="price" class="input-box" placeholder="np. 170" maxlength="100"
+            value={{price}}>
+          
+        <button type="submit" class="btn btn-reverse">Dodaj</button>
+        <button type="button" class="btn cancel" onclick="closeRen()">Anuluj</button>
+    
     </form>
   </div>
 
@@ -141,5 +185,12 @@
   }
   function closeForm() {
     document.getElementById("myForm").style.display = "none";
+  }
+
+  function openRen() {
+    document.getElementById("myRen").style.display = "block";
+  }
+  function closeRen() {
+    document.getElementById("myRen").style.display = "none";
   }
 </script>

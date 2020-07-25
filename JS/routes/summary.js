@@ -5,6 +5,7 @@ const Sale = require('../models/Sale');
 const Product = require('../models/Product');
 const User = require('../models/User');
 const Month = require('../models/Month');
+const Renament = require('../models/Renament');
 const DisplayArr = require('../models/DisplayArr');
 const Sequelize = require('sequelize');
 const sequelize = require('sequelize');
@@ -207,10 +208,13 @@ router.get('/total', (req, res) => {
   let year = dateObj.getUTCFullYear();
   DisplayArr.findAll({order: ['order']})
     .then(summary =>{
-      Product.findAll({order: ['product_name']}).
-      then(products => {
-        res.render('summary', {
-          summary, products, year
+      Product.findAll({order: ['product_name']})
+      .then(products => {
+        Renament.findAll()
+        .then(renament => {
+          res.render('summary', {
+            renament, summary, products, year
+          })
         })
       })
     })
@@ -243,11 +247,16 @@ router.post('/addnew', (req, res) => {
       text: 'Podaj cenę'
     });
   }
+  if (!amount) {
+    errors.push({
+      text: 'Podaj ilość'
+    });
+  }
 
   // Check for errors
   if (errors.length > 0) {
     res.render('addnew', {
-      errors: 'test',
+      errors,
       product_name,
       price
     });
@@ -279,6 +288,57 @@ router.post('/addnew', (req, res) => {
   }
 });
 
+// Display add product form
+router.get('/addren', (req, res) => res.render('addren'));
+
+// Add a user
+router.post('/addren', (req, res) => {
+  let {
+    product_name,
+    amount,
+    price
+  } = req.body;
+  let errors = [];
+  
+  // Validate Fields
+  if (!price) {
+    console.log('error==============price')
+    errors.push({
+      text: 'Podaj cenę'
+    });
+  }
+  if (!amount) {
+    console.log('error==============amount')
+    errors.push({
+      text: 'Podaj ilość'
+    });
+  }
+
+  // Check for errors
+  if (errors.length > 0) {
+    console.log('error==============lenght')
+
+    res.render('addren', {
+      errors,
+      product_name,
+      price
+    });
+  } else {
+    // Insert into table
+    Renament.create({
+      product_name,
+      amount,
+      price
+    })
+    .then(product => {
+      res.redirect(`/summary/display/1`)
+    })
+    .catch(err => res.render('error', {
+      error: err.message
+      }))
+  }
+});
+
 // Display erase product form
 router.get('/erruser', (req, res) => res.render('/users/display'));
 
@@ -305,7 +365,7 @@ router.post('/erruser/:id', (req, res) => {
 
 // Get product list
 router.get('/editsummary/:id', (req, res) =>
-  DisplayArr.findAll({where: {id: req.params.id}})
+  Renament.findAll({where: {id: req.params.id}})
   .then(products =>{
     res.render('editsummary', {
       products
@@ -319,19 +379,12 @@ router.get('/editsummary/:id', (req, res) =>
 router.get('/errsummary', (req, res) => res.render('/summary'));
 
 // Erase a product
-router.post('/errsummary/:year/:month/:user/:product', (req, res) => {
-  console.log('test: ', req.params.year, req.params.month, req.params.user, req.params.product)
-  Product.findAll({where: {product_name: req.params.product}})
-  .then(prod => {
-    Sale.destroy({
-      where: {
-        month_year: req.params.year,
-        month_name: req.params.month,
-        userId: req.params.user,
-        productId: prod[0].dataValues.id
-      }
-    }).then(res.redirect(`/summary/display/${req.params.user}`))
-  })
+router.post('/errsummary/:id', (req, res) => {
+  Renament.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(res.redirect(`/summary/display/1`))
 });
 
 // Add a product
@@ -339,33 +392,23 @@ router.post('/editsummary/:id', (req, res) => {
   let {
     amount,
     price,
-    product_name,
-    userId,
-    month_name,
-    month_year
   } = req.body;
 
   // Insert into table
-  Product.findAll({attributes: ['id'], where: {product_name}})
-  .then(odp => {
-    Sale.update({ 
-      amount,
-      price
-    }, {
-      where: {
-        month_name,
-        month_year,
-        userId,
-        productId: odp[0].dataValues.id
-      }
-    })
-    .then(result => {
-      console.log("Table summary Updated");
-      res.redirect(`/summary/display/${userId}`);
+  Renament.update({ 
+    amount,
+    price
+  }, {
+    where: {
+      id: req.params.id
     }
-    )
+  })
+  .then(result => {
+    console.log("Table renament Updated");
+    res.redirect(`/summary/display/1`);
+  }
+  )
     .catch(err => console.log(err))
-  });
 });
 
 const month_day = (month) => {

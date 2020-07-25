@@ -6,7 +6,7 @@
             <button class="remove_button" onclick="openDelete()"><i class="fa fa-trash"></i></button>
         </nav>
         </div>
-        <form action="/summary/editsummary/0" method="POST">
+        <form action="/summary/editsummary/{{id}}" method="POST">
             <div class="input-group">
                 <label for="product_name">Nazwa produktu</label>
                 <h2>{{product_name}}</h2>
@@ -21,10 +21,12 @@
                 <input type="text" name="price" id="price" class="input-box" placeholder={{price}} maxlength="100"
                 value={{price}}>
             </div>
-            <input name="month_name" value={{month_name}} style="display: none;">
-            <input name="month_year" value={{month_year}} style="display: none;">
-            <input name="userId" value={{userId}} style="display: none;">
-            <input name="product_name" value={{product_name}} style="display: none;">
+            <div style="display: none;">
+                <input name="month_name" value={{month_name}} style="display: none;">
+                <input name="month_year" value={{month_year}} style="display: none;">
+                <input name="userId" value={{userId}} style="display: none;">
+                <input name="product_name" value={{product_name}} style="display: none;">
+            </div>
             <div>
                 <input type="submit" value="Zatwierdź" class="btn btn-reverse" style="display: inline-block; margin-right: 10px;">
                 <a href="/summary/total">
@@ -35,7 +37,7 @@
     {{/each}}
 
     <div class="form-popup" id="myDelete">
-        <form action="/summary/errsummary/{{products.[0].month_year}}/{{products.[0].month_name}}/{{products.[0].userId}}/{{products.[0].product_name}}" 
+        <form action="/summary/errsummary/{{products.[0].id}}" 
         method="POST" class="form-container">
             <h1>Potwierdź operację</h1>
             <button type="submit" class="btn delete" onclick="closeDelete()">Usuń</button>

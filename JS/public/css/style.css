@@ -227,12 +227,17 @@ header.inner {
 }
 
 .display-suma {
-  background-color: #fdd24344;
+  background-color: rgb(255, 248, 241);
+  border-top: 3px solid rgb(110, 110, 110);
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   padding-left: 0;
   padding-right: 0;
+}
+
+.display-suma th {
+  background-color: rgba(255, 228, 196, 0.911);
 }
 
 .display-suma td,

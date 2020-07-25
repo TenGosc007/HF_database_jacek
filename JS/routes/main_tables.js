@@ -204,13 +204,15 @@ router.get('/display/:id', (req, res) => {
 // Display table with details
 router.get('/total', (req, res) => {
   const dateObj = new Date();
+  let month = dateObj.getUTCMonth() + 1;
   let year = dateObj.getUTCFullYear();
+  month_1 = month_to_day(month);
   DisplayArr.findAll({order: ['order']})
     .then(mtable =>{
       Product.findAll({order: ['product_name']}).
       then(products => {
         res.render('mtable', {
-          mtable, products, year
+          mtable, products, year, month_1
         })
       })
     })
@@ -330,7 +332,29 @@ router.post('/errmtable/:year/:month/:user/:product', (req, res) => {
         userId: req.params.user,
         productId: prod[0].dataValues.id
       }
-    }).then(res.redirect(`/mtable/display/${req.params.user}`))
+    }).then(odp => {
+      if(req.params.product == "Karnet" || req.params.product == "Karnet_XL"){
+        Month.update({
+          total_carnet: 0, 
+        },{
+          where: {
+            month_name: req.params.month,
+            month_year: req.params.year,
+            userId: req.params.user
+          }
+        }).then(res.redirect(`/mtable/display/${req.params.user}`))
+      }else {
+        Month.update({
+          total_product: 0, 
+        },{
+          where: {
+            month_name: req.params.month,
+            month_year: req.params.year,
+            userId: req.params.user
+          }
+        }).then(res.redirect(`/mtable/display/${req.params.user}`))
+      }
+    })
   })
 });
 
@@ -405,6 +429,52 @@ const month_day = (month) => {
       break;
     case 'Grudzień':
       return 12;
+      break;
+    default:
+      return "ERROR";
+  }
+};
+
+const month_to_day = (month) => {
+  if (month <= 0) {
+    month = 12 + month;
+  }
+  switch (month) {
+    case 1:
+      return 'Styczeń';
+      break;
+    case 2:
+      return 'Luty';
+      break;
+    case 3:
+      return 'Marzec';
+      break;
+    case 4:
+      return 'Kwiecień';
+      break;
+    case 5:
+      return 'Maj';
+      break;
+    case 6:
+      return 'Czerwiec';
+      break;
+    case 7:
+      return 'Lipiec';
+      break;
+    case 8:
+      return 'Sierpień';
+      break;
+    case 9:
+      return 'Wrzesień';
+      break;
+    case 10:
+      return 'Październik';
+      break;
+    case 11:
+      return 'Listopad';
+      break;
+    case 12:
+      return 'Grudzień';
       break;
     default:
       return "ERROR";

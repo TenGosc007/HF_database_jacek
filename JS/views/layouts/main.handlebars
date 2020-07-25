@@ -47,12 +47,12 @@
         loader.style.display = 'none';
 
         main.style.display = 'block';
-        setTimeout(() => (main.style.opacity = 1), 200);
-      }, 300);
+        setTimeout(() => (main.style.opacity = 1), 100);
+      }, 200);
     }
 
     if(!location.search) {
-      setTimeout("location.replace(location.href+'?+')",200)
+      setTimeout("location.replace(location.href+'?+')",100)
     } else {
       init();
     }
