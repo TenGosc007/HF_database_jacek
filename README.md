@@ -21,3 +21,9 @@ DATABASE = ''
 USER_NAME = ''
 PASSWORD = ''
 ```
+
+# First launch of the base
+ORDER IS IMPORTANT!
+ 1 Create first product named NULL
+ 2 Create first user named My/Olek
+ 3 Create next products named Koktail and Koktail_XL
