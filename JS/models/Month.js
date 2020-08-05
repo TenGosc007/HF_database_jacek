@@ -20,10 +20,10 @@ const Month = db.define('month', {
     }
   },
   total_product: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_carnet: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   }
 });
 

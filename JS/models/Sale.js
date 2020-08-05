@@ -35,7 +35,7 @@ const Sale = db.define('sale', {
     }
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   amount: {
     type: Sequelize.INTEGER

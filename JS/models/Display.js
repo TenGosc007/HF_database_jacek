@@ -15,40 +15,40 @@ const Display = db.define('display', {
     type: Sequelize.STRING
   },
   total_product_1: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_carnet_1: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_product_2: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_carnet_2: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_product_3: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_carnet_3: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   totalSum_product_1: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },  
   totalSum_carnet_1: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   totalSum_product_2: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },  
   totalSum_carnet_2: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   totalSum_product_3: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },  
   totalSum_carnet_3: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
 });
 

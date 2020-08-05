@@ -30,13 +30,13 @@ const DisplayArr = db.define('displayArr', {
     type: Sequelize.INTEGER
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_product: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   total_carnet: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   }
 });
 

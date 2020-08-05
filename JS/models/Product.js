@@ -12,7 +12,7 @@ const Product = db.define('product', {
     primaryKey: true
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   }
 });
 

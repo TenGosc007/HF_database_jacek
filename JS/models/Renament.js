@@ -15,7 +15,7 @@ const Renament = db.define('renament', {
     type: Sequelize.INTEGER
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   }
 });
 
