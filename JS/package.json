@@ -22,7 +22,7 @@
     "sequelize": "^4.44.4"
   },
   "devDependencies": {
-    "handlebars": "^4.5.0",
+    "handlebars": "^4.7.7",
     "nodemon": "^1.19.4"
   }
 }
